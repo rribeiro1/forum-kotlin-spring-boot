@@ -1,4 +1,4 @@
-package br.com.alura.forum.dtos.Topic
+package br.com.alura.forum.dtos.topic
 
 import br.com.alura.forum.model.Topic
 import org.springframework.stereotype.Component
