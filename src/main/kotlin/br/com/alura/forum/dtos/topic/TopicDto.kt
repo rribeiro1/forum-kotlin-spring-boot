@@ -1,14 +1,10 @@
 package br.com.alura.forum.dtos.topic
 
-import br.com.alura.forum.model.Topic
-import org.springframework.stereotype.Component
+import java.time.LocalDateTime
 
-@Component
-class TopicsDto {
-    fun convert(topic: Topic) = TopicDto(
-            topic.id!!,
-            topic.title!!,
-            topic.message!!,
-            topic.creationDate
-    )
-}
+data class TopicDto (
+        val id: Long,
+        val title: String,
+        val message: String,
+        val dateCreation: LocalDateTime
+)

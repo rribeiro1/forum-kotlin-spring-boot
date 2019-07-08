@@ -4,16 +4,17 @@ import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
-class Topic {
+class Topic(
+		var title: String? = null,
+		var message: String? = null,
+		@ManyToOne
+		var course: Course? = null
+) {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	var id: Long? = null
-	var title: String? = null
-	var message: String? = null
 
-	@ManyToOne
-	var course: Course? = null
 	var creationDate = LocalDateTime.now()
 
 	@Enumerated(EnumType.STRING)
