@@ -23,7 +23,7 @@ class Topic(
 	@ManyToOne
 	var author: User? = null
 
-	@OneToMany(mappedBy = "topic")
+	@OneToMany(mappedBy = "topic", cascade = [CascadeType.ALL], orphanRemoval = true)
 	var answers: List<Answer> = arrayListOf()
 
 	override fun hashCode(): Int {

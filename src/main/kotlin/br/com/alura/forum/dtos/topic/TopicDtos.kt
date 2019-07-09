@@ -31,4 +31,9 @@ class TopicDtos(
             topic.status,
             topic.answers.map { answerDtos.convert(it) }
     )
+
+    fun apply(target: Topic, input: TopicUpdateDto) = target.apply {
+        input.title.let { title = it }
+        input.message.let { message = it }
+    }
 }
