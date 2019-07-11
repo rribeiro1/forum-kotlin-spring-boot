@@ -6,6 +6,9 @@ import br.com.alura.forum.dtos.topic.TopicDtos
 import br.com.alura.forum.dtos.topic.TopicUpdateDto
 import br.com.alura.forum.repository.CourseRepository
 import br.com.alura.forum.repository.TopicRepository
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
@@ -26,9 +29,11 @@ class TopicController(
 
     @GetMapping
     @Transactional(readOnly = true)
-    fun list(courseName: String? = null) = when(courseName) {
-            null -> topicRepository.findAll()
-            else -> topicRepository.findByCourseName(courseName)
+    fun list(@RequestParam(required = false) courseName: String? = null,
+             @PageableDefault(sort = ["creationDate"], direction = Sort.Direction.DESC) pageable: Pageable) =
+            when(courseName) {
+                null -> topicRepository.findAll(pageable)
+                else -> topicRepository.findByCourseName(courseName, pageable)
         }.map { topic -> topicDtos.convertToDto(topic) }
 
     @PostMapping

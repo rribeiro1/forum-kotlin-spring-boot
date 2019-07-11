@@ -6,5 +6,5 @@ data class TopicDto (
         val id: Long,
         val title: String,
         val message: String,
-        val dateCreation: LocalDateTime
+        val creationDate: LocalDateTime
 )
