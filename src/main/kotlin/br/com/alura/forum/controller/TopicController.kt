@@ -6,6 +6,8 @@ import br.com.alura.forum.dtos.topic.TopicDtos
 import br.com.alura.forum.dtos.topic.TopicUpdateDto
 import br.com.alura.forum.repository.CourseRepository
 import br.com.alura.forum.repository.TopicRepository
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
@@ -15,6 +17,10 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import javax.validation.Valid
 
+/**
+ * It was implemented cache for studies purpose, in a real scenario it makes more sense implement it in tables where
+ * data is not update with frequency e.g Street names, etc.
+ */
 @RestController
 @RequestMapping("/topics")
 class TopicController(
@@ -28,6 +34,7 @@ class TopicController(
             .map { topic -> topicDtos.convertToDetailDto(topic)}
 
     @GetMapping
+    @Cacheable("topics")
     @Transactional(readOnly = true)
     fun list(@RequestParam(required = false) courseName: String? = null,
              @PageableDefault(sort = ["creationDate"], direction = Sort.Direction.DESC) pageable: Pageable) =
@@ -38,6 +45,7 @@ class TopicController(
 
     @PostMapping
     @Transactional
+    @CacheEvict("topics", allEntries = true)
     fun create(@RequestBody @Valid topicCreateDto: TopicCreateDto,
                uriBuilder: ServletUriComponentsBuilder): ResponseEntity<TopicDto> {
         val course = courseRepository.findByName(topicCreateDto.courseName)
@@ -49,6 +57,7 @@ class TopicController(
 
     @PutMapping("/{id}")
     @Transactional
+    @CacheEvict("topics", allEntries = true)
     fun update(@PathVariable id: Long, @RequestBody @Valid topicUpdateDto: TopicUpdateDto): ResponseEntity<TopicDto> {
         val updated = topicDtos.apply(findById(id), topicUpdateDto)
         return ResponseEntity.ok(topicDtos.convertToDto(updated))
@@ -56,6 +65,7 @@ class TopicController(
 
     @DeleteMapping("/{id}")
     @Transactional
+    @CacheEvict("topics", allEntries = true)
     fun delete(@PathVariable id: Long): ResponseEntity<Any> {
         topicRepository.delete(findById(id))
         return ResponseEntity.ok().build()
