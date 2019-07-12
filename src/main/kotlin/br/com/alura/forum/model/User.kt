@@ -1,38 +1,28 @@
 package br.com.alura.forum.model
 
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 import javax.persistence.*
 
 @Entity
 @Table(name = "author")
-class User {
+class User : UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
     var name: String? = null
     var email: String? = null
-    var password: String? = null
+    var pass: String? = null
 
-    override fun hashCode(): Int {
-        val prime = 31
-        var result = 1
-        result = prime * result + if (id == null) 0 else id!!.hashCode()
-        return result
-    }
+    @ManyToMany(fetch = FetchType.EAGER)
+    var profiles: MutableList<Profile> = mutableListOf()
 
-    override fun equals(obj: Any?): Boolean {
-        if (this === obj)
-            return true
-        if (obj == null)
-            return false
-        if (javaClass != obj.javaClass)
-            return false
-        val other = obj as User?
-        if (id == null) {
-            if (other!!.id != null)
-                return false
-        } else if (id != other!!.id)
-            return false
-        return true
-    }
+    override fun getUsername() = this.email!!
+    override fun getPassword() = this.pass!!
+    override fun isEnabled() = true
+    override fun isCredentialsNonExpired() = true
+    override fun isAccountNonExpired() = true
+    override fun isAccountNonLocked() = true
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> { return profiles }
 }

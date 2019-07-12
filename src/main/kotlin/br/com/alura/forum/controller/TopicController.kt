@@ -28,7 +28,7 @@ class TopicController(
         private val courseRepository: CourseRepository,
         private val topicDtos: TopicDtos
 ) {
-
+    
     @GetMapping("/{id}")
     fun findAllById(@PathVariable id: Long) = topicRepository.findById(id)
             .map { topic -> topicDtos.convertToDetailDto(topic)}

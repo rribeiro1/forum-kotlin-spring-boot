@@ -1,5 +1,5 @@
-INSERT INTO AUTHOR(name, email, password) VALUES('Student', 'aluno@email.com', '123456');
-INSERT INTO AUTHOR(name, email, password) VALUES('Teacher', 'teacher@email.com', '123456');
+INSERT INTO AUTHOR(name, email, pass) VALUES('Student', 'aluno@email.com', '$2a$10$JDsao6aF92byDOip4It4JOylqhKmYZegaMs0zl68o1tKGYnYNEdg6');
+INSERT INTO AUTHOR(name, email, pass) VALUES('Teacher', 'teacher@email.com', '123456');
 
 INSERT INTO COURSE(name, category) VALUES('Spring Boot', 'Development');
 INSERT INTO COURSE(name, category) VALUES('HTML 5', 'Front-end');
