@@ -1,4 +1,4 @@
-package br.com.alura.forum.security
+package br.com.alura.forum.config.security
 
 import br.com.alura.forum.repository.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
