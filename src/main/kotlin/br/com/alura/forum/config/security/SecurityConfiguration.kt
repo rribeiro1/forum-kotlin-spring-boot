@@ -1,5 +1,7 @@
 package br.com.alura.forum.config.security
 
+import br.com.alura.forum.repository.UserRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -10,11 +12,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @EnableWebSecurity
 @Configuration
 class SecurityConfiguration(
-        private val authenticationService: AuthenticationService
+        private val authenticationService: AuthenticationService,
+        private val tokenService: TokenService,
+        private val userRepository: UserRepository
 ) : WebSecurityConfigurerAdapter() {
 
     @Bean
@@ -36,5 +41,6 @@ class SecurityConfiguration(
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().addFilterBefore(TokenAuthenticationFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter::class.java)
     }
 }
