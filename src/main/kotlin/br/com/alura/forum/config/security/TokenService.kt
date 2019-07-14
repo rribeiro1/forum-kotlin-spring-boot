@@ -7,7 +7,6 @@ import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Service
 import java.lang.Exception
-import java.lang.reflect.Executable
 import java.util.*
 
 @Service
