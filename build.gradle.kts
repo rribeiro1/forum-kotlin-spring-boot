@@ -25,6 +25,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
+	implementation("io.springfox:springfox-swagger2:2.9.2")
+	implementation("io.springfox:springfox-swagger-ui:2.9.2")
 	runtime("org.springframework.boot:spring-boot-devtools")
 	runtime("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
