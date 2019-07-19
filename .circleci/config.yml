@@ -26,7 +26,9 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: gradle clean build -x test
+      - run:
+        name: Build
+        command: gradle clean build -x test
 
       - save_cache:
           paths:
@@ -34,7 +36,9 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
 
       # Run tests
-      - run: gradle test
+      - run:
+        name: Tests
+        command: gradle test
 
       - store_test_results:
           path: ./build/test-results
