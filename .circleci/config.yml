@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    work_directory: ~/forum-app
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      - restore_cache:
+          keys: forum-app-{{  checksum "build.gradle.kts" }}
+      - run: ./gradlew clean build
+      - store_test_results:
+          path: ./build/test-results
+      - save_cache:
+          path:
+            - ~/.gradle
+          key: forum-app-{{ checksum "build.gradle.kts" }}
