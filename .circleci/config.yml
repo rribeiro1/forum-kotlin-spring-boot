@@ -1,17 +1,52 @@
+# Kotlin Gradle CircleCI 2.0 configuration file
+#
 version: 2
 jobs:
   build:
     work_directory: ~/forum-app
     docker:
       - image: circleci/openjdk:8-jdk
+
+    # Specify service dependencies here if necessary
+    # CircleCI maintains a library of pre-built images
+    # documented at https://circleci.com/docs/2.0/circleci-images/
+      - image: circleci/postgres:9.4
+
+    environment:
+      CC_TEST_REPORTER_ID: 1c273b4ec0fadb0df1aa101329e35d9e88f39ad5cee2de302c1a2c3e765f4764
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
     steps:
       - checkout
+
       - restore_cache:
-          keys: forum-app-{{  checksum "build.gradle.kts" }}
-      - run: ./gradlew clean build
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: Install Dependencies
+          command: |
+            wget https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 -O ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+
+      - run:
+          name: Build & Tests
+          command: gradle clean build jacocoTestReport jacocoTestCoverageVerification jacocoFixForCodeClimate
+
+      - run:
+          name: Upload Tests to CodeClimate
+          command: |
+            ./cc-test-reporter format-coverage -d -t jacoco -o jacoco.xml ./build/reports/jacoco/test/jacoco.xml
+            ./cc-test-reporter upload-coverage -i jacoco.xml
+
       - store_test_results:
           path: ./build/test-results
+
       - save_cache:
-          path:
+          paths:
             - ~/.gradle
-          key: forum-app-{{ checksum "build.gradle.kts" }}
+          key: v1-dependencies-{{ checksum "build.gradle" }}
