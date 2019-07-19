@@ -27,8 +27,8 @@ jobs:
             - v1-dependencies-
 
       - run:
-        name: Build
-        command: gradle clean build -x test
+          name: Build
+          command: gradle clean build -x test
 
       - save_cache:
           paths:
@@ -37,8 +37,8 @@ jobs:
 
       # Run tests
       - run:
-        name: Tests
-        command: gradle test
+          name: Tests
+          command: gradle test
 
       - store_test_results:
           path: ./build/test-results
