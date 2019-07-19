@@ -22,23 +22,30 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "build.gradle.kts" }}
+            - v1-dependencies-{{ checksum "build.gradle" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
       - run:
-          name: Build
-          command: gradle clean build -x test
+          name: Install Dependencies
+          command: |
+            wget https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 -O ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+
+      - run:
+          name: Build & Tests
+          command: gradle clean build jacocoTestReport jacocoTestCoverageVerification jacocoFixForCodeClimate
+
+      - run:
+          name: Upload Tests to CodeClimate
+          command: |
+            ./cc-test-reporter format-coverage -d -t jacoco ./build/reports/jacoco/test/jacoco.xml
+            ./cc-test-reporter upload-coverage -d
+
+      - store_test_results:
+          path: ./build/test-results
 
       - save_cache:
           paths:
             - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle.kts" }}
-
-      # Run tests
-      - run:
-          name: Tests
-          command: gradle test
-
-      - store_test_results:
-          path: ./build/test-results
+          key: v1-dependencies-{{ checksum "build.gradle" }}
