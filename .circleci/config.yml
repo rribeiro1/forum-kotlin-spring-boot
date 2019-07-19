@@ -32,8 +32,7 @@ jobs:
       - run: ./gradlew dependencies
 
       - save_cache:
-          path:
-            - ~/.gradle
+          path: ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
 
       # Run tests
