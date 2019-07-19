@@ -39,8 +39,8 @@ jobs:
       - run:
           name: Upload Tests to CodeClimate
           command: |
-            ./cc-test-reporter format-coverage -d -t jacoco ./build/reports/jacoco/test/jacoco.xml
-            ./cc-test-reporter upload-coverage -d
+            ./cc-test-reporter format-coverage -d -t jacoco -o jacoco.xml ./build/reports/jacoco/test/jacoco.xml
+            ./cc-test-reporter upload-coverage -i jacoco.xml
 
       - store_test_results:
           path: ./build/test-results
