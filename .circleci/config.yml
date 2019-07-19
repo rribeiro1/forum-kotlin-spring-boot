@@ -41,4 +41,3 @@ jobs:
 
       - store_test_results:
           path: ./build/test-results
-        
