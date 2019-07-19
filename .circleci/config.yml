@@ -1,13 +1,10 @@
-# Java Gradle CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
+# Kotlin Gradle CircleCI 2.0 configuration file
 #
 version: 2
 jobs:
   build:
     work_directory: ~/forum-app
     docker:
-      # specify the version you desire here
       - image: circleci/openjdk:8-jdk
 
     # Specify service dependencies here if necessary
