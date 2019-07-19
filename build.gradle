@@ -81,5 +81,4 @@ task jacocoFixForCodeClimate(type: Copy) {
 	rename { String fileName ->
 		fileName.replace("jacocoTestReport.xml", "jacoco.xml")
 	}
-	filter { line -> line.replaceAll("com/", "src/main/kotlin/com/") }
 }
