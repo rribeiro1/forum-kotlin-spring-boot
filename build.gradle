@@ -59,7 +59,7 @@ dependencies {
 	implementation("io.springfox:springfox-swagger-ui:2.9.2")
 	runtime("org.springframework.boot:spring-boot-devtools")
 	runtime("com.h2database:h2")
-	testImplementation('io.rest-assured:rest-assured:4.0.0')
+	testImplementation('io.rest-assured:rest-assured:4.3.1')
 	testImplementation('io.rest-assured:json-path:4.0.0')
 	testImplementation('io.rest-assured:xml-path:4.0.0')
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
