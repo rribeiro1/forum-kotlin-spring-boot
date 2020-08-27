@@ -1,16 +1,13 @@
 # Kotlin Gradle CircleCI 2.0 configuration file
 #
-version: 2
+version: 2.1
+orbs:
+  aws-ecr: circleci/aws-ecr@6.12.2
 jobs:
   build:
-    work_directory: ~/forum-app
+    work_directory: ~/app
     docker:
       - image: circleci/openjdk:8-jdk
-
-    # Specify service dependencies here if necessary
-    # CircleCI maintains a library of pre-built images
-    # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/postgres:9.4
 
     environment:
       CC_TEST_REPORTER_ID: 1c273b4ec0fadb0df1aa101329e35d9e88f39ad5cee2de302c1a2c3e765f4764
@@ -20,33 +17,44 @@ jobs:
 
     steps:
       - checkout
-
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "build.gradle" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-
       - run:
-          name: Install Dependencies
-          command: |
-            wget https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 -O ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-
-      - run:
-          name: Build & Tests
-          command: gradle clean build jacocoTestReport jacocoTestCoverageVerification jacocoFixForCodeClimate
-
-      - run:
-          name: Upload Tests to CodeClimate
-          command: |
-            ./cc-test-reporter format-coverage -d -t jacoco -o jacoco.xml ./build/reports/jacoco/test/jacoco.xml
-            ./cc-test-reporter upload-coverage -i jacoco.xml
-
-      - store_test_results:
-          path: ./build/test-results
-
+          name: Build
+          command: ./gradlew clean build -x test
       - save_cache:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
+      - persist_to_workspace:
+          root: ~/app
+          paths:
+            - libs/*.jar
+            - build/libs/*.jar
+            - Dockerfile
+
+# define workflows that are triggered on different events
+workflows:
+  version: 2
+
+  # run on every commit on master
+  build_and_deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+      - aws-ecr/build-and-push-image:
+          repo: test/app
+          tag: '${CIRCLE_SHA1}'
+          checkout: false
+          attach-workspace: true
+          workspace-root: ~/app
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
