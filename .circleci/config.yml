@@ -5,10 +5,9 @@ orbs:
   aws-ecr: circleci/aws-ecr@6.12.2
 jobs:
   build:
-    work_directory: ~/app
     docker:
       - image: circleci/openjdk:8-jdk
-
+    working_directory: ~/app
     environment:
       CC_TEST_REPORTER_ID: 1c273b4ec0fadb0df1aa101329e35d9e88f39ad5cee2de302c1a2c3e765f4764
       # Customize the JVM maximum heap limit
