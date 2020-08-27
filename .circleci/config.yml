@@ -45,6 +45,7 @@ workflows:
             branches:
               only: master
       - aws-ecr/build-and-push-image:
+          name: build-container
           repo: test/app
           tag: '${CIRCLE_SHA1}'
           path: ~/app
