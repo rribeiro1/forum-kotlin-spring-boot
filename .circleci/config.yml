@@ -21,7 +21,7 @@ jobs:
             - v1-dependencies-{{ checksum "build.gradle" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-      - run: ./gradlew clean build
+      - run: ./gradlew clean build -x test
       - save_cache:
           paths:
             - ~/.gradle
@@ -49,7 +49,7 @@ workflows:
           tag: '${CIRCLE_SHA1}'
           checkout: false
           attach-workspace: true
-          workspace-root: ~/app
+          workspace-root: '~/app'
           requires:
             - build
           filters:
