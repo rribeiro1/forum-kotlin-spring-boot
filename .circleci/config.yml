@@ -47,6 +47,7 @@ workflows:
       - aws-ecr/build-and-push-image:
           repo: test/app
           tag: '${CIRCLE_SHA1}'
+          path: ~/app
           checkout: false
           attach-workspace: true
           workspace-root: '~/app'
