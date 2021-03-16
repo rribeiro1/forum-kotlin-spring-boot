@@ -69,6 +69,16 @@ dependencies {
 	testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.3.2')
 }
 
+test {
+	useJUnitPlatform()
+
+	reports.html.enabled = false
+
+	testLogging {
+		exceptionFormat = "full"
+	}
+}
+
 jacoco {
 	toolVersion = "0.8.2"
 }
@@ -78,7 +88,7 @@ jacocoTestReport {
 	reports {
 		xml.enabled = true
 		csv.enabled = false
-		html.destination file("${buildDir}/reports/coverage")
+		html.enabled = false
 	}
 }
 
