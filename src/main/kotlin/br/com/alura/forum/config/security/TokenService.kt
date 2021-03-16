@@ -11,9 +11,8 @@ import java.util.*
 
 @Service
 class TokenService(
-        private val jwtConfig: JwtConfig
+    private val jwtConfig: JwtConfig
 ) {
-
     fun createToken(authentication: Authentication): String {
         val creationDate = Date()
         return Jwts.builder()
@@ -26,14 +25,14 @@ class TokenService(
     }
 
     fun isTokenValid(token: String): Boolean {
-        try {
+        return try {
             Jwts.parser().setSigningKey(jwtConfig.secret).parseClaimsJws(token)
-            return true
+            true
         } catch (e: Exception) {
-            return false
+            false
         }
     }
 
     fun getUserId(token: String) =
-            Jwts.parser().setSigningKey(jwtConfig.secret).parseClaimsJws(token).body.subject.toLong()
+        Jwts.parser().setSigningKey(jwtConfig.secret).parseClaimsJws(token).body.subject.toLong()
 }

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class TokenAuthenticationFilter(
-        private val tokenService: TokenService,
-        private val userRepository: UserRepository
+    private val tokenService: TokenService,
+    private val userRepository: UserRepository
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
@@ -25,11 +25,10 @@ class TokenAuthenticationFilter(
         filterChain.doFilter(request, response)
     }
 
-    fun retrieveToken(request: HttpServletRequest): String {
+    private fun retrieveToken(request: HttpServletRequest): String {
         val token = request.getHeader("Authorization")
-        if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
-            return ""
-        }
-        else return token.substring(7, token.length)
+        return if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
+            ""
+        } else token.substring(7, token.length)
     }
 }

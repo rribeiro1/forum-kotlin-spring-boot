@@ -17,9 +17,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @Configuration
 class SecurityConfiguration(
-        private val authenticationService: AuthenticationService,
-        private val tokenService: TokenService,
-        private val userRepository: UserRepository
+    private val authenticationService: AuthenticationService,
+    private val tokenService: TokenService,
+    private val userRepository: UserRepository
 ) : WebSecurityConfigurerAdapter() {
 
     @Bean
@@ -47,7 +47,12 @@ class SecurityConfiguration(
 
     //-- static resources(js, css, images, etc)
     override fun configure(web: WebSecurity) {
-        web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**",
-                "/configuration/**", "/swagger-resources/**")
+        web.ignoring().antMatchers(
+            "/**.html",
+            "/v2/api-docs",
+            "/webjars/**",
+            "/configuration/**",
+            "/swagger-resources/**"
+        )
     }
 }

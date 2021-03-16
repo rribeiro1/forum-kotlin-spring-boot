@@ -14,18 +14,18 @@ import springfox.documentation.spring.web.plugins.Docket
 class SwaggerConfig {
 
     @Bean
-    fun forumApi() = Docket(DocumentationType.SWAGGER_2)
-            .select()
-            .apis(RequestHandlerSelectors.basePackage("br.com.alura.forum"))
-            .paths(PathSelectors.ant("/**"))
-            .build()
-            .ignoredParameterTypes(User::class.java)
-            .globalOperationParameters(arrayListOf(
-                    ParameterBuilder()
-                            .name("Authorization")
-                            .description("Header for token JWT")
-                            .modelRef(ModelRef("string"))
-                            .parameterType("header")
-                            .required(false)
-                            .build()))
+    fun forumApi(): Docket = Docket(DocumentationType.SWAGGER_2)
+        .select()
+        .apis(RequestHandlerSelectors.basePackage("br.com.alura.forum"))
+        .paths(PathSelectors.ant("/**"))
+        .build()
+        .ignoredParameterTypes(User::class.java)
+        .globalOperationParameters(arrayListOf(
+            ParameterBuilder()
+                .name("Authorization")
+                .description("Header for token JWT")
+                .modelRef(ModelRef("string"))
+                .parameterType("header")
+                .required(false)
+                .build()))
 }

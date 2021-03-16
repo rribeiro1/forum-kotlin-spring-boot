@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component
 @Component
 class AnswerDtos {
     fun convert(answer: Answer) = AnswerDto(
-            answer.id!!,
-            answer.message!!,
-            answer.creationDate,
-            answer.author!!.name!!
+        answer.id!!,
+        answer.message!!,
+        answer.creationDate,
+        answer.author!!.name!!
     )
 }

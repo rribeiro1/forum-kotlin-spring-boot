@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
-class ValidationErrorHandle(
-        private val messageSource: MessageSource
+class ValidationErrorHandler(
+    private val messageSource: MessageSource
 ) {
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)

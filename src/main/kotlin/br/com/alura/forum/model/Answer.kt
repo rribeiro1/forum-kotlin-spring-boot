@@ -13,7 +13,7 @@ class Answer {
 
     @ManyToOne
     var topic: Topic? = null
-    var creationDate = LocalDateTime.now()
+    var creationDate: LocalDateTime = LocalDateTime.now()
 
     @ManyToOne
     var author: User? = null

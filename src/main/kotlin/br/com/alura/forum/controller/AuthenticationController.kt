@@ -13,19 +13,19 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/auth")
 class AuthenticationController(
-        private val authenticationManager: AuthenticationManager,
-        private val tokenService: TokenService
+    private val authenticationManager: AuthenticationManager,
+    private val tokenService: TokenService
 ) {
 
     @PostMapping
     fun auth(@RequestBody @Valid loginDto: LoginDto): ResponseEntity<TokenDto> {
         val credentials = UsernamePasswordAuthenticationToken(loginDto.email, loginDto.password)
-        try {
+        return try {
             val authentication = authenticationManager.authenticate(credentials)
             val token = tokenService.createToken(authentication)
-            return ResponseEntity.ok(TokenDto(token, "Bearer"))
+            ResponseEntity.ok(TokenDto(token, "Bearer"))
         } catch (e: AuthenticationException) {
-            return ResponseEntity.badRequest().build()
+            ResponseEntity.badRequest().build()
         }
     }
 }

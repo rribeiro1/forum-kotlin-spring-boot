@@ -24,9 +24,9 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/topics")
 class TopicController(
-        private val topicRepository: TopicRepository,
-        private val courseRepository: CourseRepository,
-        private val topicDtos: TopicDtos
+    private val topicRepository: TopicRepository,
+    private val courseRepository: CourseRepository,
+    private val topicDtos: TopicDtos
 ) {
 
     @GetMapping("/{id}")
@@ -36,11 +36,13 @@ class TopicController(
     @GetMapping
     @Cacheable("topic-list")
     @Transactional(readOnly = true)
-    fun list(@RequestParam(required = false) courseName: String? = null,
-             @PageableDefault(sort = ["creationDate"], direction = Sort.Direction.DESC) pageable: Pageable) =
-            when(courseName) {
-                null -> topicRepository.findAll(pageable)
-                else -> topicRepository.findByCourseName(courseName, pageable)
+    fun list(
+        @RequestParam(required = false) courseName: String? = null,
+        @PageableDefault(sort = ["creationDate"], direction = Sort.Direction.DESC
+    ) pageable: Pageable) =
+        when(courseName) {
+            null -> topicRepository.findAll(pageable)
+            else -> topicRepository.findByCourseName(courseName, pageable)
         }.map { topic -> topicDtos.convertToDto(topic) }
 
     @PostMapping
@@ -72,5 +74,5 @@ class TopicController(
     }
 
     fun findById(id: Long) = topicRepository.findById(id)
-            .orElseThrow { throw NoSuchElementException("resource not found") }
+        .orElseThrow { throw NoSuchElementException("resource not found") }
 }
