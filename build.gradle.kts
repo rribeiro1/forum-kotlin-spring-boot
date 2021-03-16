@@ -40,7 +40,7 @@ dependencies {
 	testImplementation("io.rest-assured:xml-path:4.0.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.mockk:mockk:1.9.3")
-	testImplementation("com.ninja-squad:springmockk:1.1.2")
+	testImplementation("com.ninja-squad:springmockk:3.0.1")
 	testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.1")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.2")
 }
