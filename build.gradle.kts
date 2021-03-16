@@ -19,6 +19,8 @@ repositories {
 	mavenCentral()
 }
 
+val jUnitJupiterVersion = "5.7.1"
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -41,8 +43,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.mockk:mockk:1.9.3")
 	testImplementation("com.ninja-squad:springmockk:3.0.1")
-	testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.1")
-	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.2")
+	testImplementation("org.junit.jupiter:junit-jupiter-api:${jUnitJupiterVersion}")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${jUnitJupiterVersion}")
 }
 
 tasks.withType<KotlinCompile> {
