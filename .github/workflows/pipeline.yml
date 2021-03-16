@@ -31,8 +31,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build
-        run: ./gradlew build -x test
+      - name: Build & Test with Code Coverage
+        run: ./gradlew clean build jacocoTestReport jacocoTestCoverageVerification
 
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
@@ -41,11 +41,11 @@ jobs:
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
 
-      - name: Test & Publish Code Coverage
+      - name: Publish Code Coverage
         uses: paambaati/codeclimate-action@v2.7.5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
-          coverageCommand: ./gradlew test jacocoTestReport jacocoTestCoverageVerification
-          coverageLocations: ./build/reports/jacoco/test/jacoco.xml:jacoco
+          coverageCommand: ./gradlew jacocoFixForCodeClimate
+          coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacoco.xml:jacoco
           debug: true
