@@ -1,23 +1,31 @@
 ## Forum Application
 
-[![CircleCI](https://circleci.com/gh/rribeiro1/forum-kotlin-spring-boot/tree/master.svg?style=svg)](https://circleci.com/gh/rribeiro1/forum-kotlin-spring-boot/tree/master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/6cdcb074e10579edd89f/maintainability)](https://codeclimate.com/github/rribeiro1/forum-kotlin-spring-boot/maintainability)
+[![CI/CD Pipeline](https://github.com/rribeiro1/forum-kotlin-spring-boot/actions/workflows/pipeline.yml/badge.svg)](https://github.com/rribeiro1/forum-kotlin-spring-boot/actions/workflows/pipeline.yml)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6cdcb074e10579edd89f/test_coverage)](https://codeclimate.com/github/rribeiro1/forum-kotlin-spring-boot/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/6cdcb074e10579edd89f/maintainability)](https://codeclimate.com/github/rribeiro1/forum-kotlin-spring-boot/maintainability)
+
+### Built using
+
+- [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
+- [Spring Security](https://spring.io/projects/spring-security)
+- [H2 in-memory Database Engine](http://www.h2database.com/html/main.html)
+- [Github Actions](https://docs.github.com/en/actions)
+- [Code Climate](https://codeclimate.com/)
 
 ### Build
 
 ```sh
-gradle build
+./gradlew build
 ```
 
 ### Test
 
 ```sh
-gradle test
+./gradlew test
 ```
 
 ### Run
 
 ```sh
-gradle bootRun
+./gradlew bootRun
 ```
