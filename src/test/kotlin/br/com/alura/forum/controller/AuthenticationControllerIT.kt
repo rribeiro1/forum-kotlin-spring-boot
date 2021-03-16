@@ -15,12 +15,12 @@ class AuthenticationControllerIT : AbstractIT() {
     inner class WithValidLogin {
         @Test
         fun `should create a new token`() {
-            val loginDto = LoginDto(email = "aluno@email.com", password = "123456")
+            userFacade.createUser(email = "aluno@email.com", password = "123456")
 
             val actual = RestAssured
                 .given()
                 .contentType(ContentType.JSON)
-                .body(loginDto)
+                .body(LoginDto(email = "aluno@email.com", password = "123456"))
                 .post("auth")
                 .then()
                 .statusCode(200)
@@ -28,7 +28,7 @@ class AuthenticationControllerIT : AbstractIT() {
                 .body().`as`(TokenDto::class.java)
 
             assertThat(actual.type).isEqualTo("Bearer")
-            assertThat(actual.token).isNotNull()
+            assertThat(actual.token).isNotNull
         }
     }
 
