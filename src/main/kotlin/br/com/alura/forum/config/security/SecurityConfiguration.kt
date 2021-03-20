@@ -27,15 +27,15 @@ class SecurityConfiguration(
         return super.authenticationManager()
     }
 
-    //-- Handle authentications
+    // -- Handle authentications
     override fun configure(auth: AuthenticationManagerBuilder) {
         auth.userDetailsService(authenticationService).passwordEncoder(BCryptPasswordEncoder())
     }
 
-    //-- Handle authorizations
+    // -- Handle authorizations
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/topics").permitAll()
+                .antMatchers(HttpMethod.GET, "/topics").permitAll()
                 .antMatchers(HttpMethod.GET, "/topics/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
@@ -45,7 +45,7 @@ class SecurityConfiguration(
                 .and().addFilterBefore(TokenAuthenticationFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter::class.java)
     }
 
-    //-- static resources(js, css, images, etc)
+    // -- static resources(js, css, images, etc)
     override fun configure(web: WebSecurity) {
         web.ignoring().antMatchers(
             "/**.html",

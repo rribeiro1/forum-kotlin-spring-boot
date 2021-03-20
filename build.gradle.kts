@@ -7,6 +7,7 @@ plugins {
 	kotlin("plugin.spring") version "1.4.30"
 	kotlin("plugin.jpa") version "1.4.30"
 	id("org.jetbrains.kotlin.kapt") version "1.4.31"
+	id("com.diffplug.spotless") version "5.11.0"
 	id("jacoco")
 	id("idea")
 	id("java")
@@ -19,7 +20,7 @@ repositories {
 	mavenCentral()
 }
 
-val jUnitJupiterVersion = "5.7.1"
+val jupiterVersion = "5.7.1"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -43,8 +44,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.mockk:mockk:1.9.3")
 	testImplementation("com.ninja-squad:springmockk:3.0.1")
-	testImplementation("org.junit.jupiter:junit-jupiter-api:${jUnitJupiterVersion}")
-	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${jUnitJupiterVersion}")
+	testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}")
 }
 
 tasks.withType<KotlinCompile> {
@@ -79,3 +80,20 @@ task<Copy>("jacocoFixForCodeClimate") {
 	}
 	filter { line -> line.replace("br/com/", "src/main/kotlin/br/com/") }
 }
+
+spotless {
+	format("misc") {
+		target(".gitignore", "*.md", "*.yml", "*.properties")
+
+		trimTrailingWhitespace()
+		indentWithSpaces()
+		endWithNewline()
+	}
+
+	kotlin {
+		ktlint()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+}
+

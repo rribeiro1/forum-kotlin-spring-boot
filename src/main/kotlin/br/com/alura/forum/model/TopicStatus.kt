@@ -6,5 +6,4 @@ enum class TopicStatus {
     NOT_SOLVED,
     SOLVED,
     CLOSED
-
 }

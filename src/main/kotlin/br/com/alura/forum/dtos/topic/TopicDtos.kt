@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class TopicDtos(
-        private val answerDtos: AnswerDtos
+    private val answerDtos: AnswerDtos
 ) {
     fun convertToDto(topic: Topic) = TopicDto(
             topic.id!!,

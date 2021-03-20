@@ -11,5 +11,5 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 class ForumApplication
 
 fun main(args: Array<String>) {
-	runApplication<ForumApplication>(*args)
+    runApplication<ForumApplication>(*args)
 }

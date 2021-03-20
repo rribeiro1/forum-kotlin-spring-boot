@@ -4,10 +4,10 @@ import br.com.alura.forum.config.JwtConfig
 import br.com.alura.forum.model.User
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
+import java.lang.Exception
+import java.util.Date
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Service
-import java.lang.Exception
-import java.util.*
 
 @Service
 class TokenService(

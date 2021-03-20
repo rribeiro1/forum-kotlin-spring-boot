@@ -31,6 +31,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Check Code linter
+        run: ./gradlew spotlessCheck
+
       - name: Build & Test with Code Coverage
         run: ./gradlew clean build jacocoTestReport jacocoTestCoverageVerification
 

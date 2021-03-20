@@ -6,6 +6,7 @@ import br.com.alura.forum.dtos.topic.TopicDtos
 import br.com.alura.forum.dtos.topic.TopicUpdateDto
 import br.com.alura.forum.repository.CourseRepository
 import br.com.alura.forum.repository.TopicRepository
+import javax.validation.Valid
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Pageable
@@ -13,9 +14,16 @@ import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
-import javax.validation.Valid
 
 /**
  * It was implemented cache for studies purpose, in a real scenario it makes more sense implement it in tables where
@@ -31,7 +39,7 @@ class TopicController(
 
     @GetMapping("/{id}")
     fun findAllById(@PathVariable id: Long) = topicRepository.findById(id)
-            .map { topic -> topicDtos.convertToDetailDto(topic)}
+            .map { topic -> topicDtos.convertToDetailDto(topic) }
 
     @GetMapping
     @Cacheable("topic-list")
@@ -39,8 +47,9 @@ class TopicController(
     fun list(
         @RequestParam(required = false) courseName: String? = null,
         @PageableDefault(sort = ["creationDate"], direction = Sort.Direction.DESC
-    ) pageable: Pageable) =
-        when(courseName) {
+    ) pageable: Pageable
+    ) =
+        when (courseName) {
             null -> topicRepository.findAll(pageable)
             else -> topicRepository.findByCourseName(courseName, pageable)
         }.map { topic -> topicDtos.convertToDto(topic) }
@@ -48,8 +57,10 @@ class TopicController(
     @PostMapping
     @Transactional
     @CacheEvict("topic-list", allEntries = true)
-    fun create(@RequestBody @Valid topicCreateDto: TopicCreateDto,
-               uriBuilder: ServletUriComponentsBuilder): ResponseEntity<TopicDto> {
+    fun create(
+        @RequestBody @Valid topicCreateDto: TopicCreateDto,
+        uriBuilder: ServletUriComponentsBuilder
+    ): ResponseEntity<TopicDto> {
         val course = courseRepository.findByName(topicCreateDto.courseName)
         val topic = topicDtos.convertToEntity(topicCreateDto, course)
         val saved = topicRepository.save(topic)
