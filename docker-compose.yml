@@ -1,0 +1,15 @@
+version: "3"
+services:
+  postgres:
+    image: "postgres"
+    environment:
+      DATABASE_HOST: "localhost"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "forum"
+    ports:
+      - "5432:5432"
+    volumes:
+      - "development-data:/var/lib/postgresql/data"
+volumes:
+  development-data:
