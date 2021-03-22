@@ -11,6 +11,7 @@ jobs:
       name: build
     name: Build & Test
     runs-on: ubuntu-latest
+    container: openjdk:11-jdk-buster
     env:
       DATABASE_HOST: localhost
       DATABASE_NAME: forum
@@ -37,10 +38,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Set up Java
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
+      - name: Grant execute for gradlew
+        run: chmod +x gradlew
 
       - name: Cache Gradle packages
         uses: actions/cache@v2
