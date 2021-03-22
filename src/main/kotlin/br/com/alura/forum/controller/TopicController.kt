@@ -59,7 +59,7 @@ class TopicController(
     fun create(
         @RequestBody @Validated topicCreateDto: TopicCreateDto,
         @AuthenticationPrincipal userDetails: User
-        ): TopicDto {
+    ): TopicDto {
         val course = courseRepository.findByName(topicCreateDto.courseName)
         val topic = Topic(
             topicCreateDto.title,

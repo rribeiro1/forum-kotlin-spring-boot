@@ -6,7 +6,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-class Course (
+class Course(
     val name: String,
     val category: String
 ) {

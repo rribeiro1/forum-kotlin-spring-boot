@@ -7,9 +7,9 @@ import javax.persistence.Id
 import org.springframework.security.core.GrantedAuthority
 
 @Entity
-class Profile (
+class Profile(
     val name: String
-): GrantedAuthority {
+) : GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null

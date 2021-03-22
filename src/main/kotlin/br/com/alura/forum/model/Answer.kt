@@ -8,7 +8,7 @@ import javax.persistence.Id
 import javax.persistence.ManyToOne
 
 @Entity
-class Answer (
+class Answer(
     val message: String,
 
     @ManyToOne
