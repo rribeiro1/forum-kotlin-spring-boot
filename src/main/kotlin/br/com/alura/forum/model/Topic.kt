@@ -13,12 +13,13 @@ import javax.persistence.OneToMany
 
 @Entity
 class Topic(
-    var title: String? = null,
-    var message: String? = null,
+    var title: String,
+    var message: String,
     @ManyToOne
-    var course: Course? = null
+    var course: Course,
+    @ManyToOne
+    var author: User
 ) {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
@@ -27,9 +28,6 @@ class Topic(
 
     @Enumerated(EnumType.STRING)
     var status = TopicStatus.NOT_ANSWERED
-
-    @ManyToOne
-    var author: User? = null
 
     @OneToMany(mappedBy = "topic", cascade = [CascadeType.ALL], orphanRemoval = true)
     var answers: List<Answer> = arrayListOf()

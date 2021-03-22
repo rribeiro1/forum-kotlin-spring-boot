@@ -9,6 +9,6 @@ class AnswerDtos {
         answer.id!!,
         answer.message!!,
         answer.creationDate,
-        answer.author!!.name!!
+        answer.author!!.name
     )
 }

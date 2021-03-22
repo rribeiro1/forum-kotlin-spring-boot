@@ -6,11 +6,11 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-class Course {
-
+class Course (
+    val name: String,
+    val category: String
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
-    var name: String? = null
-    var category: String? = null
 }
