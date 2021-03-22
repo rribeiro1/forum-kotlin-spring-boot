@@ -11,11 +11,6 @@ jobs:
       name: build
     name: Build & Test
     runs-on: ubuntu-latest
-    env:
-      DATABASE_HOST: postgres # postgres since it's running in a container, see services below.
-      DATABASE_NAME: forum
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: password
 
     services:
       postgres:
@@ -56,7 +51,12 @@ jobs:
       #  run: gradle spotlessCheck
 
       - name: Build & Test with Code Coverage
-        run: ./gradlew clean build jacocoTestReport jacocoTestCoverageVerification
+        run: ./gradlew clean build jacocoTestReport jacocoTestCoverageVerification --stacktrace
+        env:
+          DATABASE_HOST: postgres
+          DATABASE_NAME: forum
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: password
 
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
