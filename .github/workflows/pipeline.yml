@@ -53,7 +53,7 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Check Code linter
-        run: ./gradlew spotlessCheck
+        run: gradle spotlessCheck
 
       - name: Build & Test with Code Coverage
         run: ./gradlew clean build jacocoTestReport jacocoTestCoverageVerification
