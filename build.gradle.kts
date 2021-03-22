@@ -45,7 +45,7 @@ dependencies {
 	testImplementation("io.rest-assured:json-path:4.0.0")
 	testImplementation("io.rest-assured:xml-path:4.0.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("io.mockk:mockk:1.9.3")
+	testImplementation("io.mockk:mockk:1.11.0")
 	testImplementation("com.ninja-squad:springmockk:3.0.1")
 	testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}")
