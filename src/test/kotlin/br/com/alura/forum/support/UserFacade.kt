@@ -10,10 +10,12 @@ class UserFacade(
     private val userRepository: UserRepository,
     private val passwordEncoderConfig: PasswordEncoderConfig
 ) {
-    fun createUser(email: String, password: String): User {
-        val user = User()
-        user.email = email
-        user.pass = passwordEncoderConfig.encoder().encode(password)
+    fun createUser(name: String, email: String, password: String): User {
+        val user = User(
+            name = name,
+            email = email,
+            pass = passwordEncoderConfig.encoder().encode(password)
+        )
         return userRepository.save(user)
     }
 

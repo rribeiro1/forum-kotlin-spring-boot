@@ -8,6 +8,7 @@ plugins {
 	kotlin("plugin.jpa") version "1.4.30"
 	id("org.jetbrains.kotlin.kapt") version "1.4.31"
 	id("com.diffplug.spotless") version "5.11.0"
+	id ("org.flywaydb.flyway") version "7.7.0"
 	id("jacoco")
 	id("idea")
 	id("java")
@@ -37,6 +38,8 @@ dependencies {
 	implementation("org.hibernate:hibernate-validator:7.0.1.Final")
 	implementation("javax.validation:validation-api:2.0.0.Final")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	runtimeOnly("org.flywaydb:flyway-core")
+	runtimeOnly("org.postgresql:postgresql")
 	runtimeOnly("com.h2database:h2")
 	testImplementation("io.rest-assured:rest-assured:4.0.0")
 	testImplementation("io.rest-assured:json-path:4.0.0")

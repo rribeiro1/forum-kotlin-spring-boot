@@ -8,18 +8,19 @@ import javax.persistence.Id
 import javax.persistence.ManyToOne
 
 @Entity
-class Answer {
+class Answer (
+    val message: String,
 
+    @ManyToOne
+    val topic: Topic,
+    val creationDate: LocalDateTime = LocalDateTime.now(),
+
+    @ManyToOne
+    val author: User,
+
+    val solution: Boolean
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
-    var message: String? = null
-
-    @ManyToOne
-    var topic: Topic? = null
-    var creationDate: LocalDateTime = LocalDateTime.now()
-
-    @ManyToOne
-    var author: User? = null
-    var solution: Boolean? = false
 }
