@@ -11,6 +11,27 @@ jobs:
       name: build
     name: Build & Test
     runs-on: ubuntu-latest
+    env:
+      DATABASE_HOST: localhost
+      DATABASE_NAME: forum
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: password
+
+    services:
+      postgres:
+        image: postgres:12.6-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: main
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 2s
+          --health-retries 5
+        ports:
+          - 5432:5432
 
     steps:
       - name: Checkout Code
