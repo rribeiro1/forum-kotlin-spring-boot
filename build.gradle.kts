@@ -35,7 +35,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("io.springfox:springfox-swagger2:2.9.2")
-	implementation("io.springfox:springfox-swagger-ui:2.9.2")
+	implementation("io.springfox:springfox-swagger-ui:3.0.0")
 	implementation("org.hibernate:hibernate-validator:7.0.1.Final")
 	implementation("javax.validation:validation-api:2.0.1.Final")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
