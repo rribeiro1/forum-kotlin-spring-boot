@@ -41,7 +41,7 @@ dependencies {
 	runtimeOnly("org.flywaydb:flyway-core")
 	runtimeOnly("org.postgresql:postgresql")
 	runtimeOnly("com.h2database:h2")
-	testImplementation("io.rest-assured:rest-assured:4.0.0")
+	testImplementation("io.rest-assured:rest-assured:4.3.3")
 	testImplementation("io.rest-assured:json-path:4.0.0")
 	testImplementation("io.rest-assured:xml-path:4.0.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
