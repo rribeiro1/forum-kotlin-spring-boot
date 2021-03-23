@@ -22,6 +22,7 @@ repositories {
 }
 
 val jupiterVersion = "5.7.1"
+val restAssuredVersion = "4.0.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -41,9 +42,9 @@ dependencies {
 	runtimeOnly("org.flywaydb:flyway-core")
 	runtimeOnly("org.postgresql:postgresql")
 	runtimeOnly("com.h2database:h2")
-	testImplementation("io.rest-assured:rest-assured:4.0.0")
-	testImplementation("io.rest-assured:json-path:4.0.0")
-	testImplementation("io.rest-assured:xml-path:4.0.0")
+	testImplementation("io.rest-assured:rest-assured:${restAssuredVersion}")
+	testImplementation("io.rest-assured:json-path:${restAssuredVersion}")
+	testImplementation("io.rest-assured:xml-path:${restAssuredVersion}")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.mockk:mockk:1.9.3")
 	testImplementation("com.ninja-squad:springmockk:3.0.1")
