@@ -4,12 +4,6 @@ on:
   push:
     branches:
       - '**'
-env:
-  CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-  DATABASE_HOST: postgres
-  DATABASE_NAME: forum
-  DATABASE_USERNAME: postgres
-  DATABASE_PASSWORD: password
 
 jobs:
   build:
@@ -57,6 +51,11 @@ jobs:
 
       - name: Build & Test with Code Coverage
         run: ./gradlew clean build jacocoTestReport jacocoTestCoverageVerification --stacktrace
+        env:
+          DATABASE_HOST: postgres
+          DATABASE_NAME: forum
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: password
 
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
@@ -71,3 +70,5 @@ jobs:
           coverageCommand: ./gradlew jacocoFixForCodeClimate
           coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacoco.xml:jacoco
           debug: true
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
