@@ -11,7 +11,6 @@ jobs:
       name: build
     name: Build & Test
     runs-on: ubuntu-latest
-    container: openjdk:11-jdk-buster
 
     services:
       postgres:
@@ -33,9 +32,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Grant permissions for gradlew
-        run: chmod +x gradlew
-
       - name: Cache Gradle packages
         uses: actions/cache@v2
         with:
@@ -46,13 +42,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # - name: Check Code linter
-      #  run: gradle spotlessCheck
+      - name: Check Code linter
+        run: ./gradlew spotlessCheck
 
       - name: Build & Test with Code Coverage
         run: ./gradlew clean build jacocoTestReport jacocoTestCoverageVerification --stacktrace
         env:
-          DATABASE_HOST: postgres
+          DATABASE_HOST: localhost:5432
           DATABASE_NAME: forum
           DATABASE_USERNAME: postgres
           DATABASE_PASSWORD: password
