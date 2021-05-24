@@ -22,7 +22,7 @@ repositories {
 }
 
 val jupiterVersion = "5.7.1"
-val restAssuredVersion = "4.0.0"
+val restAssuredVersion = "4.4.0"
 val swaggerVersion = "3.0.0"
 
 dependencies {
