@@ -21,7 +21,7 @@ repositories {
 	mavenCentral()
 }
 
-val jupiterVersion = "5.7.1"
+val jupiterVersion = "5.8.0"
 val restAssuredVersion = "4.0.0"
 val swaggerVersion = "3.0.0"
 
