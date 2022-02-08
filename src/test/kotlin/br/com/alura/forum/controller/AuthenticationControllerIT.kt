@@ -46,7 +46,7 @@ class AuthenticationControllerIT : AbstractIT() {
                 .body(loginDto)
                 .post("auth")
                 .then()
-                .statusCode(HttpStatus.FORBIDDEN)
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 }

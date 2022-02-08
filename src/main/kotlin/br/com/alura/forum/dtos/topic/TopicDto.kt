@@ -28,7 +28,7 @@ data class TopicDto(
                 topic.creationDate,
                 topic.author.name,
                 topic.status,
-                topic.answers.map(AnswerDto.Factory::of)
+                topic.answers.map(AnswerDto::of)
             )
         }
     }

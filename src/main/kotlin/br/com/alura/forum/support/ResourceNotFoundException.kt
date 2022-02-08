@@ -2,4 +2,4 @@ package br.com.alura.forum.support
 
 import kotlin.reflect.KClass
 
-class ResourceNotFoundException(id: Long, klass: KClass<*>) : Exception("${klass.simpleName} with id($id) is not found")
+class ResourceNotFoundException(attribute: String, klass: KClass<*>) : Exception("${klass.simpleName} with $attribute is not found")

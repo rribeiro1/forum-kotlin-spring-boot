@@ -10,6 +10,6 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - "development-data:/var/lib/postgresql/data"
+      - "forum-development-data:/var/lib/postgresql/data"
 volumes:
-  development-data:
+  forum-development-data:
