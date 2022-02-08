@@ -7,6 +7,7 @@ import br.com.alura.forum.model.User
 import br.com.alura.forum.repository.CourseRepository
 import br.com.alura.forum.repository.TopicRepository
 import br.com.alura.forum.service.TopicService
+import javax.validation.Valid
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Pageable
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import javax.validation.Valid
 
 /**
  * Cache was implemented here as studies purpose, in a real scenario it makes more sense to implement it in tables where
