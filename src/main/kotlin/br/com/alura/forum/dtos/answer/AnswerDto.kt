@@ -1,6 +1,7 @@
 package br.com.alura.forum.dtos.answer
 
 import br.com.alura.forum.model.Answer
+import br.com.alura.forum.support.DtoFactory
 import java.time.LocalDateTime
 
 data class AnswerDto(
@@ -9,14 +10,12 @@ data class AnswerDto(
     val creationDate: LocalDateTime?,
     val authorName: String
 ) {
-    companion object Factory {
-        fun of(answer: Answer): AnswerDto {
-            return AnswerDto(
-                id = answer.id!!,
-                message = answer.message!!,
-                creationDate = answer.creationDate,
-                authorName = answer.author!!.name
-            )
-        }
+    companion object : DtoFactory<Answer, AnswerDto> {
+        override fun of(model: Answer) = AnswerDto(
+            id = model.id!!,
+            message = model.message,
+            creationDate = model.creationDate,
+            authorName = model.author.name
+        )
     }
 }

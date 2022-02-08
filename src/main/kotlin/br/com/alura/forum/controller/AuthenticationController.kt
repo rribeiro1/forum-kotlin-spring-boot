@@ -3,9 +3,7 @@ package br.com.alura.forum.controller
 import br.com.alura.forum.config.security.TokenService
 import br.com.alura.forum.dtos.auth.LoginDto
 import br.com.alura.forum.dtos.auth.TokenDto
-import javax.naming.AuthenticationException
 import javax.validation.Valid
-import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.web.bind.annotation.PostMapping
@@ -21,14 +19,10 @@ class AuthenticationController(
 ) {
 
     @PostMapping
-    fun auth(@RequestBody @Valid loginDto: LoginDto): ResponseEntity<TokenDto> {
+    fun auth(@Valid @RequestBody loginDto: LoginDto): TokenDto {
         val credentials = UsernamePasswordAuthenticationToken(loginDto.email, loginDto.password)
-        return try {
-            val authentication = authenticationManager.authenticate(credentials)
-            val token = tokenService.createToken(authentication)
-            ResponseEntity.ok(TokenDto(token, "Bearer"))
-        } catch (e: AuthenticationException) {
-            ResponseEntity.badRequest().build()
-        }
+        val authentication = authenticationManager.authenticate(credentials)
+        val token = tokenService.createToken(authentication)
+        return TokenDto.from("Bearer", token)
     }
 }
