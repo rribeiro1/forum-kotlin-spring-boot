@@ -6,8 +6,8 @@ plugins {
 	kotlin("jvm") version "1.4.30"
 	kotlin("plugin.spring") version "1.6.10"
 	kotlin("plugin.jpa") version "1.6.10"
-	id("org.jetbrains.kotlin.kapt") version "1.4.31"
-	id("com.diffplug.spotless") version "5.11.0"
+	kotlin("kapt") version "1.6.10"
+	id("com.diffplug.spotless") version "6.2.1"
 	id ("org.flywaydb.flyway") version "7.7.0"
 	id("jacoco")
 	id("idea")
@@ -96,7 +96,7 @@ spotless {
 	}
 
 	kotlin {
-		ktlint()
+		ktlint("0.43.2").userData(mapOf("disabled_rules" to "no-wildcard-imports"))
 		trimTrailingWhitespace()
 		endWithNewline()
 	}

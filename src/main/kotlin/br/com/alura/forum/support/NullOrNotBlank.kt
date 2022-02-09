@@ -1,13 +1,13 @@
 package br.com.alura.forum.support
 
+import org.hibernate.validator.constraints.CompositionType
+import org.hibernate.validator.constraints.ConstraintComposition
 import javax.validation.Constraint
 import javax.validation.Payload
 import javax.validation.ReportAsSingleViolation
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Null
 import kotlin.reflect.KClass
-import org.hibernate.validator.constraints.CompositionType
-import org.hibernate.validator.constraints.ConstraintComposition
 
 @ConstraintComposition(CompositionType.OR)
 @Null

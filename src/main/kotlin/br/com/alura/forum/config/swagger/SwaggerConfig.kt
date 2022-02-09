@@ -20,12 +20,15 @@ class SwaggerConfig {
         .paths(PathSelectors.ant("/**"))
         .build()
         .ignoredParameterTypes(User::class.java)
-        .globalOperationParameters(arrayListOf(
-            ParameterBuilder()
-                .name("Authorization")
-                .description("Header for token JWT")
-                .modelRef(ModelRef("string"))
-                .parameterType("header")
-                .required(false)
-                .build()))
+        .globalOperationParameters(
+            arrayListOf(
+                ParameterBuilder()
+                    .name("Authorization")
+                    .description("Header for token JWT")
+                    .modelRef(ModelRef("string"))
+                    .parameterType("header")
+                    .required(false)
+                    .build()
+            )
+        )
 }

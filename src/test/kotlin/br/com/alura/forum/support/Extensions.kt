@@ -1,8 +1,8 @@
 package br.com.alura.forum.support
 
 import io.restassured.response.ValidatableResponse
-import kotlin.reflect.KClass
 import org.springframework.http.HttpStatus
+import kotlin.reflect.KClass
 
 fun ValidatableResponse.statusCode(status: HttpStatus): ValidatableResponse = statusCode(status.value())
 
