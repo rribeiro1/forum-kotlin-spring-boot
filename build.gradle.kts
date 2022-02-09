@@ -65,7 +65,7 @@ tasks.withType<Test> {
 }
 
 jacoco {
-	toolVersion = "0.8.5"
+	toolVersion = "0.8.7"
 }
 
 tasks.jacocoTestReport {
@@ -77,13 +77,15 @@ tasks.jacocoTestReport {
 	}
 }
 
-task<Copy>("jacocoFixForCodeClimate") {
+tasks.register("jacocoFixForCodeClimate", Copy::class.java) {
 	from("build/reports/jacoco/test/jacocoTestReport.xml")
 	into("build/reports/jacoco/test/")
+	filter { line ->
+		line.replace("br/com/", "src/main/kotlin/br/com/")
+	}
 	rename { fileName ->
 		fileName.replace("jacocoTestReport.xml", "jacoco.xml")
 	}
-	filter { line -> line.replace("br/com/", "src/main/kotlin/br/com/") }
 }
 
 spotless {
