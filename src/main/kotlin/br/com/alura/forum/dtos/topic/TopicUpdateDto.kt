@@ -6,9 +6,9 @@ import org.hibernate.validator.constraints.Length
 data class TopicUpdateDto(
     @field:NullOrNotBlank
     @field:Length(min = 5)
-    val title: String?,
+    val title: String? = null,
 
     @field:NullOrNotBlank
     @field:Length(min = 10)
-    val message: String?
+    val message: String? = null
 )

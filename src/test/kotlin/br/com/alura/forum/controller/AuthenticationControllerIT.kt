@@ -18,7 +18,7 @@ class AuthenticationControllerIT : AbstractIT() {
     inner class WithValidLogin {
         @Test
         fun `should create a new token`() {
-            userFacade.createUser(name = "Student", email = "aluno@email.com", password = "123456")
+            userFacade.createAuthenticatedUser(name = "Student", email = "aluno@email.com", password = "123456")
 
             val actual = RestAssured
                 .given()
@@ -26,6 +26,7 @@ class AuthenticationControllerIT : AbstractIT() {
                 .body(LoginDto(email = "aluno@email.com", password = "123456"))
                 .post("auth")
                 .then()
+                .log().ifError()
                 .statusCode(HttpStatus.OK)
                 .extract(TokenDto::class)
 
@@ -44,9 +45,10 @@ class AuthenticationControllerIT : AbstractIT() {
                 .given()
                 .contentType(ContentType.JSON)
                 .body(loginDto)
-                .post("auth")
+                .post("/auth")
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR)
+                .log().ifError()
+                .statusCode(HttpStatus.FORBIDDEN)
         }
     }
 }

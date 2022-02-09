@@ -1,8 +1,8 @@
 package br.com.alura.forum.dtos.topic
 
+import org.hibernate.validator.constraints.Length
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
-import org.hibernate.validator.constraints.Length
 
 data class TopicCreateDto(
     @field:NotNull
