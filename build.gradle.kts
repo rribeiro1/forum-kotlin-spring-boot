@@ -37,7 +37,7 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("io.springfox:springfox-swagger2:${swaggerVersion}")
 	implementation("io.springfox:springfox-swagger-ui:${swaggerVersion}")
-	implementation("org.hibernate:hibernate-validator:7.0.1.Final")
+	implementation("org.hibernate:hibernate-validator:7.0.2.Final")
 	implementation("javax.validation:validation-api:2.0.1.Final")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.flywaydb:flyway-core")
