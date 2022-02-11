@@ -14,7 +14,7 @@ plugins {
 	id("java")
 }
 
-group = "br.com.alura"
+group = "io.rafaelribeiro"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -79,7 +79,7 @@ tasks.register("jacocoFixForCodeClimate", Copy::class.java) {
 	from("build/reports/jacoco/test/jacocoTestReport.xml")
 	into("build/reports/jacoco/test/")
 	filter { line ->
-		line.replace("br/com/", "src/main/kotlin/br/com/")
+		line.replace("io/rafaelribeiro/", "src/main/kotlin/io/rafaelribeiro/")
 	}
 	rename { fileName ->
 		fileName.replace("jacocoTestReport.xml", "jacoco.xml")
