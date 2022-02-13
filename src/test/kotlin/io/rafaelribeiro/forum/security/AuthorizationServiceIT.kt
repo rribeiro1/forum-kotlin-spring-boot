@@ -16,30 +16,24 @@ class AuthorizationServiceIT(
     private lateinit var topic: Topic
     private lateinit var user: User
     private lateinit var course: Course
+    private lateinit var anotherUser: User
 
     @BeforeEach
     fun setup() {
         course = courseFacade.create("Kotlin", "Programming")
         user = userFacade.createAuthenticatedUser("Rafael", "rafael@gmail.com", "12345")
+        anotherUser = userFacade.createAuthenticatedUser("Another", "another@email.com", "12345")
         topic = topicFacade.create("New topic", "New Message", user, course)
     }
 
     @Test
-    fun `should return true when the topic belongs to the user`() {
-        val actual = underTest.topicBelongsToUser(user, topic.id!!)
-        assertThat(actual).isTrue
-    }
-
-    @Test
-    fun `should return false when the topic does not belong to the user`() {
-        val anotherUser = userFacade.createAuthenticatedUser("Another", "another@email.com", "12345")
-        val actual = underTest.topicBelongsToUser(anotherUser, topic.id!!)
-        assertThat(actual).isFalse
-    }
-
-    @Test
-    fun `should return false when the topic does not exist`() {
-        val actual = underTest.topicBelongsToUser(user, Long.MIN_VALUE)
-        assertThat(actual).isFalse
+    fun `should test whether a topic belongs to the user`() {
+        mapOf(
+            Pair(user, topic.id!!) to true,
+            Pair(anotherUser, topic.id!!) to false,
+            Pair(user, Long.MIN_VALUE) to false
+        ).forEach {
+            assertThat(underTest.topicBelongsToUser(it.key.first, it.key.second)).isEqualTo(it.value)
+        }
     }
 }
