@@ -1,6 +1,5 @@
-package io.rafaelribeiro.forum.config.exception
+package io.rafaelribeiro.forum.support
 
-import io.rafaelribeiro.forum.support.ResourceNotFoundException
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.http.HttpStatus

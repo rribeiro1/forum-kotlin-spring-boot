@@ -30,5 +30,6 @@ class AuthorizationServiceIT(
     fun `should test whether a topic belongs to the user`() {
         assertThat(underTest.topicBelongsToUser(user.id!!, topic.id!!)).isTrue
         assertThat(underTest.topicBelongsToUser(anotherUser.id!!, topic.id!!)).isFalse
+        assertThat(underTest.topicBelongsToUser(anotherUser.id!!, Long.MAX_VALUE)).isFalse
     }
 }
