@@ -5,30 +5,23 @@ import javax.persistence.CascadeType
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 
 @Entity
-class Topic(
-    var title: String,
-    var message: String,
+data class Topic(
+    val title: String,
+    val message: String,
     @ManyToOne
-    var course: Course,
+    val course: Course,
     @ManyToOne
-    var author: User
-) {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
-
-    var creationDate = LocalDateTime.now()
+    val author: User
+) : Audit() {
+    val creationDate: LocalDateTime = LocalDateTime.now()
 
     @Enumerated(EnumType.STRING)
-    var status = TopicStatus.NOT_ANSWERED
+    val status = TopicStatus.NOT_ANSWERED
 
     @OneToMany(mappedBy = "topic", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var answers: List<Answer> = arrayListOf()
+    val answers: List<Answer> = arrayListOf()
 }

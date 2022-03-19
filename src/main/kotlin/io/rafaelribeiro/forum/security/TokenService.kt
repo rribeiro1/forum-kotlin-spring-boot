@@ -3,7 +3,6 @@ package io.rafaelribeiro.forum.security
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.rafaelribeiro.forum.config.JwtConfig
-import io.rafaelribeiro.forum.model.User
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Service
 import java.lang.Exception
@@ -17,7 +16,7 @@ class TokenService(
         val creationDate = Date()
         return Jwts.builder()
             .setIssuer("Forum API")
-            .setSubject((authentication.principal as User).id.toString())
+            .setSubject((authentication.principal as ForumUserDetails).id.toString())
             .setIssuedAt(creationDate)
             .setExpiration((Date(creationDate.time + jwtConfig.expiration!!.toLong())))
             .signWith(SignatureAlgorithm.HS256, jwtConfig.secret)

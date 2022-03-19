@@ -28,12 +28,7 @@ class AuthorizationServiceIT(
 
     @Test
     fun `should test whether a topic belongs to the user`() {
-        mapOf(
-            Pair(user, topic.id!!) to true,
-            Pair(anotherUser, topic.id!!) to false,
-            Pair(user, Long.MIN_VALUE) to false
-        ).forEach {
-            assertThat(underTest.topicBelongsToUser(it.key.first, it.key.second)).isEqualTo(it.value)
-        }
+        assertThat(underTest.topicBelongsToUser(user.id!!, topic.id!!)).isTrue
+        assertThat(underTest.topicBelongsToUser(anotherUser.id!!, topic.id!!)).isFalse
     }
 }

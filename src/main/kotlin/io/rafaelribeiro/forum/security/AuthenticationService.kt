@@ -7,14 +7,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
 @Service
-class AuthenticationService(private val userRepository: UserRepository) : UserDetailsService {
+class AuthenticationService(
+    private val userRepository: UserRepository
+) : UserDetailsService {
 
     override fun loadUserByUsername(username: String?): UserDetails {
         if (username == null)
             throw UsernameNotFoundException("username not provided.")
 
-        return userRepository.findByEmail(username).orElseThrow {
-            throw UsernameNotFoundException("Failed to authenticate user $username")
-        }
+        val user = userRepository.findByEmail(username)
+            ?: throw UsernameNotFoundException("Failed to authenticate user $username")
+
+        return ForumUserDetails(user)
     }
 }

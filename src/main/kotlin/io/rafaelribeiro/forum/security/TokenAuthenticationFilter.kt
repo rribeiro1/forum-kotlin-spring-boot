@@ -13,12 +13,14 @@ class TokenAuthenticationFilter(
     private val userRepository: UserRepository
 ) : OncePerRequestFilter() {
 
+    /* When sending a request to TOPIC, not AUTH since the user does not have token yet */
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         val token = retrieveToken(request)
         if (tokenService.isTokenValid(token)) {
             val userId = tokenService.getUserId(token)
             val user = userRepository.findById(userId).get()
-            val authentication = UsernamePasswordAuthenticationToken(user, null, user.profiles)
+            val userDetails = ForumUserDetails(user)
+            val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
             SecurityContextHolder.getContext().authentication = authentication
         }
 
