@@ -7,7 +7,7 @@ plugins {
 	kotlin("plugin.spring") version "1.6.10"
 	kotlin("plugin.jpa") version "1.6.10"
 	kotlin("kapt") version "1.6.10"
-	id("com.diffplug.spotless") version "6.2.2"
+	id("com.diffplug.spotless") version "6.3.0"
 	id ("org.flywaydb.flyway") version "7.7.0"
 	id("jacoco")
 	id("idea")
@@ -35,7 +35,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
-	implementation("org.hibernate:hibernate-validator:7.0.1.Final")
+	implementation("org.hibernate:hibernate-validator:7.0.4.Final")
 	implementation("javax.validation:validation-api:2.0.1.Final")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.flywaydb:flyway-core")
@@ -45,7 +45,7 @@ dependencies {
 	testImplementation("io.rest-assured:json-path:${restAssuredVersion}")
 	testImplementation("io.rest-assured:xml-path:${restAssuredVersion}")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("io.mockk:mockk:1.12.2")
+	testImplementation("io.mockk:mockk:1.12.3")
 	testImplementation("com.ninja-squad:springmockk:3.1.0")
 	testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}")
