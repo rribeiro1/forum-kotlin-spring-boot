@@ -14,9 +14,10 @@ import java.util.*
 @ExtendWith(MockKExtension::class)
 class TopicServiceTest(
     @MockK private val topicRepositoryMock: TopicRepository,
-    @MockK private val courseServiceMock: CourseService
+    @MockK private val courseServiceMock: CourseService,
+    @MockK private val userServiceMock: UserService
 ) {
-    private val underTest = TopicService(topicRepositoryMock, courseServiceMock)
+    private val underTest = TopicService(topicRepositoryMock, courseServiceMock, userServiceMock)
 
     @Test
     fun `should throw ResourceNotFound exception when the topic is not found`() {

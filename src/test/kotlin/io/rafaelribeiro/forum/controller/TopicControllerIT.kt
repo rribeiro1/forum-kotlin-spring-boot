@@ -35,7 +35,7 @@ class TopicControllerIT : AbstractIT() {
         val actual = authenticated()
             .get("/topics/{id}", topic.id)
             .then()
-            .log().ifError()
+            .log().ifValidationFails()
             .statusCode(HttpStatus.OK)
             .extract(TopicDto::class)
 
@@ -51,7 +51,7 @@ class TopicControllerIT : AbstractIT() {
         val actual = authenticated()
             .get("/topics")
             .then()
-            .log().ifError()
+            .log().ifValidationFails()
             .statusCode(HttpStatus.OK)
             .extractContent(TopicDto::class)
 
@@ -67,7 +67,7 @@ class TopicControllerIT : AbstractIT() {
             .body(input)
             .post("/topics")
             .then()
-            .log().ifError()
+            .log().ifValidationFails()
             .statusCode(HttpStatus.CREATED)
             .extract(TopicDto::class)
 
@@ -84,7 +84,7 @@ class TopicControllerIT : AbstractIT() {
             .body(input)
             .put("/topics/{id}", topic.id)
             .then()
-            .log().ifError()
+            .log().ifValidationFails()
             .statusCode(HttpStatus.OK)
             .extract(TopicDto::class)
 
@@ -97,7 +97,7 @@ class TopicControllerIT : AbstractIT() {
         authenticated()
             .delete("/topics/{id}", topic.id)
             .then()
-            .log().ifError()
+            .log().ifValidationFails()
             .statusCode(HttpStatus.NO_CONTENT)
 
         assertThrows<ResourceNotFoundException> {

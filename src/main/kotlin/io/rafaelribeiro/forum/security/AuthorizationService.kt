@@ -1,19 +1,17 @@
 package io.rafaelribeiro.forum.security
 
-import io.rafaelribeiro.forum.model.User
-import io.rafaelribeiro.forum.service.TopicService
-import io.rafaelribeiro.forum.support.ResourceNotFoundException
+import io.rafaelribeiro.forum.repository.TopicRepository
 import org.springframework.stereotype.Service
 
 @Service
 class AuthorizationService(
-    private val topicService: TopicService
+    private val topicRepository: TopicRepository
 ) {
-    fun topicBelongsToUser(user: User, topicId: Long): Boolean {
+    fun topicBelongsToUser(userId: Long, topicId: Long): Boolean {
         return try {
-            val topic = topicService.getById(topicId)
-            topic.author.id == user.id
-        } catch (e: ResourceNotFoundException) {
+            val topic = topicRepository.findById(topicId).get()
+            topic.author.id == userId
+        } catch (e: Exception) {
             false
         }
     }
