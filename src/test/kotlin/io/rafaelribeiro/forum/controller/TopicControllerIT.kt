@@ -9,6 +9,7 @@ import io.rafaelribeiro.forum.model.User
 import io.rafaelribeiro.forum.support.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.http.HttpStatus
@@ -30,6 +31,41 @@ class TopicControllerIT : AbstractIT() {
         topic = topicFacade.create(title = topicTitle, message = topicMessage, user, course)
     }
 
+    @Nested
+    inner class WhenGettingUsers {
+        @Test
+        fun `should get list of topics`() {
+            val newTopic = topicFacade.create(title = "New Topic", message = "Any Message", user, course)
+
+            val actual = authenticated()
+                .get("/topics")
+                .then()
+                .log().ifValidationFails()
+                .statusCode(HttpStatus.OK)
+                .extractContent(TopicDto::class)
+
+            assertThat(actual).extracting("message").contains(topicMessage, newTopic.message)
+            assertThat(actual).extracting("title").contains(topicTitle, newTopic.title)
+        }
+
+        @Test
+        fun `should get list of topics by course name`() {
+            val kotlinCourse = courseFacade.create("Kotlin", courseCategory)
+            val newTopic = topicFacade.create(title = "New Topic 1", message = "Any Message 1", user, kotlinCourse)
+
+            val actual = authenticated()
+                .queryParam("courseName", kotlinCourse.name)
+                .get("/topics")
+                .then()
+                .log().ifValidationFails()
+                .statusCode(HttpStatus.OK)
+                .extractContent(TopicDto::class)
+
+            assertThat(actual).extracting("message").contains(newTopic.message)
+            assertThat(actual).extracting("title").contains(newTopic.title)
+        }
+    }
+
     @Test
     fun `should get topic by id`() {
         val actual = authenticated()
@@ -42,21 +78,6 @@ class TopicControllerIT : AbstractIT() {
         assertThat(actual.id).isNotNull
         assertThat(actual.title).isEqualTo(topicTitle)
         assertThat(actual.message).isEqualTo(topicMessage)
-    }
-
-    @Test
-    fun `should get list of topics`() {
-        val newTopic = topicFacade.create(title = "New Topic", message = "Any Message", user, course)
-
-        val actual = authenticated()
-            .get("/topics")
-            .then()
-            .log().ifValidationFails()
-            .statusCode(HttpStatus.OK)
-            .extractContent(TopicDto::class)
-
-        assertThat(actual).extracting("message").contains(topicMessage, newTopic.message)
-        assertThat(actual).extracting("title").contains(topicTitle, newTopic.title)
     }
 
     @Test
