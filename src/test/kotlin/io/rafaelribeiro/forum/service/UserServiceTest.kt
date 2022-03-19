@@ -3,7 +3,6 @@ package io.rafaelribeiro.forum.service
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
-import io.rafaelribeiro.forum.repository.TopicRepository
 import io.rafaelribeiro.forum.repository.UserRepository
 import io.rafaelribeiro.forum.support.ResourceNotFoundException
 import org.assertj.core.api.Assertions
