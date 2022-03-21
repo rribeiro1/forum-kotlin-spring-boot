@@ -1,6 +1,7 @@
 package io.rafaelribeiro.forum.support
 
 import io.rafaelribeiro.forum.support.facades.CourseFacade
+import io.rafaelribeiro.forum.support.facades.RoleFacade
 import io.rafaelribeiro.forum.support.facades.TopicFacade
 import io.rafaelribeiro.forum.support.facades.UserFacade
 import io.restassured.RestAssured
@@ -23,6 +24,9 @@ abstract class AbstractIT {
     protected lateinit var userFacade: UserFacade
 
     @Autowired
+    protected lateinit var roleFacade: RoleFacade
+
+    @Autowired
     protected lateinit var courseFacade: CourseFacade
 
     @Autowired
@@ -39,6 +43,7 @@ abstract class AbstractIT {
     fun before() {
         RestAssured.port = testPort
         userFacade.resetDatabase()
+        roleFacade.resetDatabase()
         courseFacade.resetDatabase()
         topicFacade.resetDatabase()
     }

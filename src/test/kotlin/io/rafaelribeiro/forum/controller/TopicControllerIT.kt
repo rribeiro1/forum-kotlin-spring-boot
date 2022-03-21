@@ -26,7 +26,8 @@ class TopicControllerIT : AbstractIT() {
 
     @BeforeEach
     fun setup() {
-        user = userFacade.createAuthenticatedUser(name = "Student", email = "aluno@email.com", password = "123456")
+        val role = roleFacade.createRoleWithPrivileges("ADMIN", listOf("READ_TOPIC", "CREATE_TOPIC", "DELETE_TOPIC", "UPDATE_TOPIC"))
+        user = userFacade.createAuthenticatedUser(name = "Student", email = "aluno@email.com", password = "123456", role = role)
         course = courseFacade.create(courseName, courseCategory)
         topic = topicFacade.create(title = topicTitle, message = topicMessage, user, course)
     }
