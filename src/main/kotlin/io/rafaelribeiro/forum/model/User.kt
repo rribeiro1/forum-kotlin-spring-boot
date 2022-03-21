@@ -5,13 +5,23 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import javax.persistence.*
 
 @Entity
+@NamedEntityGraph(
+    name = "UserRolesAndPrivileges",
+    attributeNodes = [NamedAttributeNode(value = "roles", subgraph = "privileges")],
+    subgraphs = [
+        NamedSubgraph(
+            name = "privileges",
+            attributeNodes = [NamedAttributeNode(value = "privileges")]
+        )
+    ]
+)
 @Table(name = "author")
 class User(
     val name: String,
     val email: String,
     val pass: String
 ) : Audit() {
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
         name = "author_roles",
         joinColumns = [JoinColumn(name = "author_id", referencedColumnName = "id")],

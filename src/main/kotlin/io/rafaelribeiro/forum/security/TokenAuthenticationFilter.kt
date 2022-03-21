@@ -13,7 +13,7 @@ class TokenAuthenticationFilter(
     private val userRepository: UserRepository
 ) : OncePerRequestFilter() {
 
-    /* When sending a request to TOPIC, not AUTH since the user does not have token yet */
+    // Login endpoint does not execute this filter, token does not exist at this point.
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         val token = retrieveToken(request)
         if (tokenService.isTokenValid(token)) {
