@@ -6,7 +6,7 @@ import javax.persistence.*
 class Role(
     val name: String,
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
         name = "role_privileges",
         joinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")],

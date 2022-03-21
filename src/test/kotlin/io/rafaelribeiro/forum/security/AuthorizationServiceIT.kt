@@ -20,9 +20,10 @@ class AuthorizationServiceIT(
 
     @BeforeEach
     fun setup() {
+        val role = roleFacade.createRoleWithPrivileges("ADMIN", listOf("WRITE"))
         course = courseFacade.create("Kotlin", "Programming")
-        user = userFacade.createAuthenticatedUser("Rafael", "rafael@gmail.com", "12345")
-        anotherUser = userFacade.createAuthenticatedUser("Another", "another@email.com", "12345")
+        user = userFacade.createAuthenticatedUser("Rafael", "rafael@gmail.com", "12345", role = role)
+        anotherUser = userFacade.createAuthenticatedUser("Another", "another@email.com", "12345", role = role)
         topic = topicFacade.create("New topic", "New Message", user, course)
     }
 

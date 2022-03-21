@@ -18,7 +18,8 @@ class AuthenticationControllerIT : AbstractIT() {
     inner class WithValidLogin {
         @Test
         fun `should create a new token`() {
-            userFacade.createAuthenticatedUser(name = "Student", email = "aluno@email.com", password = "123456")
+            val role = roleFacade.createRoleWithPrivileges("ADMIN", listOf("WRITE"))
+            userFacade.createAuthenticatedUser(name = "Student", email = "aluno@email.com", password = "123456", role = role)
 
             val actual = RestAssured
                 .given()
