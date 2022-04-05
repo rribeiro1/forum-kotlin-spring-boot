@@ -5,7 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	kotlin("jvm") version "1.6.10"
 	kotlin("plugin.spring") version "1.6.20"
-	kotlin("plugin.jpa") version "1.6.10"
+	kotlin("plugin.jpa") version "1.6.20"
 	kotlin("kapt") version "1.6.10"
 	id("com.diffplug.spotless") version "6.4.1"
 	id ("org.flywaydb.flyway") version "7.7.0"
