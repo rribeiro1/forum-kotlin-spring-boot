@@ -38,6 +38,7 @@ class SecurityConfiguration(
     // -- Handle authorizations
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
+            .antMatchers("/graphql").permitAll()
             .antMatchers(HttpMethod.GET, "/topics").permitAll()
             .antMatchers(HttpMethod.GET, "/topics/*").permitAll()
             .antMatchers(HttpMethod.POST, "/auth").permitAll()
@@ -51,6 +52,7 @@ class SecurityConfiguration(
     // -- static resources(js, css, images, etc)
     override fun configure(web: WebSecurity) {
         web.ignoring().antMatchers(
+            "/graphiql/**",
             "/**.html",
             "/webjars/**",
             "/configuration/**",
