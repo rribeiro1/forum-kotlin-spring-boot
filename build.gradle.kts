@@ -3,11 +3,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.7.0"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
-	kotlin("jvm") version "1.6.10"
-	kotlin("plugin.spring") version "1.6.10"
-	kotlin("plugin.jpa") version "1.6.10"
-	kotlin("kapt") version "1.6.10"
-	id("com.diffplug.spotless") version "6.3.0"
+	kotlin("jvm") version "1.6.20"
+	kotlin("plugin.spring") version "1.6.20"
+	kotlin("plugin.jpa") version "1.6.20"
+	kotlin("kapt") version "1.6.20"
+	id("com.diffplug.spotless") version "6.4.1"
 	id ("org.flywaydb.flyway") version "7.7.0"
 	id("jacoco")
 	id("idea")
@@ -22,7 +22,7 @@ repositories {
 }
 
 val jupiterVersion = "5.8.2"
-val restAssuredVersion = "4.5.1"
+val restAssuredVersion = "5.0.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
