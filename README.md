@@ -12,10 +12,24 @@
 - [Github Actions](https://docs.github.com/en/actions)
 - [Code Climate](https://codeclimate.com/)
 
+### Getting started
+
+Copy the `example.env` to `.env`:
+
+```sh
+cp example.env .env
+```
+
+### Spin up database with Docker composer
+
+```sh
+docker compose up
+```
+
 ### Build
 
 ```sh
-./gradlew build
+./gradlew build -x test
 ```
 
 ### Test

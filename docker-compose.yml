@@ -2,8 +2,9 @@ version: "3"
 services:
   postgres:
     image: "postgres"
+    env_file:
+      - .env
     environment:
-      DATABASE_HOST: "localhost"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: "forum"
