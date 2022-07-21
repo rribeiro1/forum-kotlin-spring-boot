@@ -62,4 +62,3 @@ java -javaagent:libs/dd-java-agent.jar -Ddd.logs.injection=true -Ddd.service=for
 
 ### Get user profile
 `GET` http://localhost:8080/me
-
