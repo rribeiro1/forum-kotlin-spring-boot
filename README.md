@@ -8,9 +8,10 @@
 
 - [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
 - [Spring Security](https://spring.io/projects/spring-security)
-- [H2 in-memory Database Engine](http://www.h2database.com/html/main.html)
+- [Postgres](https://www.postgresql.org/)
 - [Github Actions](https://docs.github.com/en/actions)
 - [Code Climate](https://codeclimate.com/)
+- [Instrumentation with Datadog](https://www.datadoghq.com/auto-instrumentation/)
 
 ### Getting started
 
@@ -32,14 +33,33 @@ docker compose up
 ./gradlew build -x test
 ```
 
+### Run
+
+```sh
+./gradlew bootRun
+
+# With datadog agent
+java -javaagent:libs/dd-java-agent.jar -Ddd.logs.injection=true -Ddd.service=forum -Ddd.env=local -jar build/libs/forum.jar
+```
+
 ### Test
 
 ```sh
 ./gradlew test
 ```
 
-### Run
+### Endpoints
 
-```sh
-./gradlew bootRun
+### Authenticate
+
+`POST` http://localhost:8080/auth
+```json
+{
+    "email": "aluno@email.com",
+    "password": "123456"
+}
 ```
+
+### Get user profile
+`GET` http://localhost:8080/me
+

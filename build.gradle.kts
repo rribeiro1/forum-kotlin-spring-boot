@@ -40,6 +40,14 @@ dependencies {
 	implementation("javax.validation:validation-api:2.0.1.Final")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("me.paulschwarz:spring-dotenv:2.5.4")
+
+	// -- Tracing
+	implementation("com.datadoghq:dd-trace-api:0.102.0")
+	implementation("io.opentracing.contrib:opentracing-spring-web-starter:4.1.0")
+	runtimeOnly("net.logstash.logback:logstash-logback-encoder:7.2")
+	implementation("ch.qos.logback:logback-classic:1.2.11")
+	implementation("ch.qos.logback:logback-core:1.2.11")
+
 	runtimeOnly("org.flywaydb:flyway-core")
 	runtimeOnly("org.postgresql:postgresql")
 	runtimeOnly("com.h2database:h2")

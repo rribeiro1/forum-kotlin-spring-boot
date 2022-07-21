@@ -4,6 +4,7 @@ import io.rafaelribeiro.forum.repository.UserRepository
 import io.rafaelribeiro.forum.security.AuthenticationService
 import io.rafaelribeiro.forum.security.TokenAuthenticationFilter
 import io.rafaelribeiro.forum.security.TokenService
+import io.rafaelribeiro.forum.support.ExtraTracingFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -22,7 +23,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class SecurityConfiguration(
     private val authenticationService: AuthenticationService,
     private val tokenService: TokenService,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val extraTracingFilter: ExtraTracingFilter
 ) : WebSecurityConfigurerAdapter() {
 
     @Bean
@@ -47,6 +49,7 @@ class SecurityConfiguration(
             .and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and().addFilterBefore(TokenAuthenticationFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterAfter(extraTracingFilter, UsernamePasswordAuthenticationFilter::class.java)
     }
 
     // -- static resources(js, css, images, etc)

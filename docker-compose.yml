@@ -10,6 +10,8 @@ services:
       POSTGRES_DB: "forum"
     ports:
       - "5432:5432"
+    expose:
+      - "5432"
     volumes:
       - "forum-development-data:/var/lib/postgresql/data"
 volumes:
