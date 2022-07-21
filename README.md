@@ -50,6 +50,8 @@ java -javaagent:libs/dd-java-agent.jar -Ddd.logs.injection=true -Ddd.service=for
 
 ### Endpoints
 
+> You can run the [SQL script on the resources](src/main/resources/data.sql) path to include some records on the database.
+
 ### Authenticate
 
 `POST` http://localhost:8080/auth
@@ -62,4 +64,4 @@ java -javaagent:libs/dd-java-agent.jar -Ddd.logs.injection=true -Ddd.service=for
 
 ### Get user profile
 `GET` http://localhost:8080/me
-
+> Header: Authorization: Bearer `token`

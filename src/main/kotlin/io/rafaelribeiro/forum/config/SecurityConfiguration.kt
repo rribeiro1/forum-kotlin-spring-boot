@@ -1,9 +1,11 @@
 package io.rafaelribeiro.forum.config
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.rafaelribeiro.forum.repository.UserRepository
 import io.rafaelribeiro.forum.security.AuthenticationService
 import io.rafaelribeiro.forum.security.TokenAuthenticationFilter
 import io.rafaelribeiro.forum.security.TokenService
+import io.rafaelribeiro.forum.security.UnauthenticatedEntryPoint
 import io.rafaelribeiro.forum.support.ExtraTracingFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -24,7 +26,8 @@ class SecurityConfiguration(
     private val authenticationService: AuthenticationService,
     private val tokenService: TokenService,
     private val userRepository: UserRepository,
-    private val extraTracingFilter: ExtraTracingFilter
+    private val extraTracingFilter: ExtraTracingFilter,
+    private val objectMapper: ObjectMapper
 ) : WebSecurityConfigurerAdapter() {
 
     @Bean
@@ -50,6 +53,7 @@ class SecurityConfiguration(
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and().addFilterBefore(TokenAuthenticationFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter::class.java)
             .addFilterAfter(extraTracingFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .exceptionHandling().authenticationEntryPoint(UnauthenticatedEntryPoint(objectMapper))
     }
 
     // -- static resources(js, css, images, etc)
