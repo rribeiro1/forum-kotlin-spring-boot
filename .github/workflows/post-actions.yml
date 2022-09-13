@@ -14,8 +14,11 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+        with:
+          ref: auto-merge
 
       - name: Update DataDog agent
+        shell: bash
         run: |
           echo ${{ github.event.pull_request.title }}
           TITLE="${{ github.event.pull_request.title }}"
@@ -31,4 +34,4 @@ jobs:
           echo $(git branch)
           git add .
           git commit -m "Upgrade datadog agent version to ${VERSION}"
-          git push origin HEAD:auto-merge
+          git push
