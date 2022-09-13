@@ -23,6 +23,8 @@ jobs:
           echo $VERSION
           wget -O dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/v${VERSION}/dd-java-agent.jar"
           cp dd-java-agent.jar libs
+          git config --global user.email "rafael.pr10@gmail.com"
+          git config --global user.name "Rafael Ribeiro"
           git add .
           git commit -m "Upgrade datadog agent version to ${VERSION}"
           git push
