@@ -27,4 +27,4 @@ jobs:
           git config --global user.name "Rafael Ribeiro"
           git add .
           git commit -m "Upgrade datadog agent version to ${VERSION}"
-          git push
+          git push origin HEAD:auto-merge
