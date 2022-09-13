@@ -20,10 +20,7 @@ jobs:
       - name: Update DataDog agent
         shell: bash
         run: |
-          ls
-          echo ${{ github.event.pull_request.title }}
-          TITLE="${{ github.event.pull_request.title }}"
-          VERSION=v"$(echo $TITLE | sed 's/^.* \([^ ][^ ]*\)/\1/g')"
+          VERSION=v"$(echo ${{ github.event.pull_request.title }} | sed 's/^.* \([^ ][^ ]*\)/\1/g')"
           echo $VERSION
           wget -O libs/dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/${VERSION}/dd-java-agent.jar"
           git status
