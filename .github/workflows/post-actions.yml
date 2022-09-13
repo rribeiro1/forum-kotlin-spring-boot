@@ -20,18 +20,22 @@ jobs:
       - name: Update DataDog agent
         shell: bash
         run: |
+          echo "Get Datadog target version from PR"
           PR_TITLE="${{ github.event.pull_request.title }}"
           DD_TARGET_VERSION=v"$(echo $PR_TITLE | sed 's/^.* \([^ ][^ ]*\)/\1/g')"
-          echo $VERSION
+
+          echo "Downloading Datadog agent version ${VERSION}"
           wget -O libs/dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/${DD_TARGET_VERSION}/dd-java-agent.jar"
-          git status
+
+          echo "Configuring Github"
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git add libs/dd-java-agent.jar
-          
+
+          echo "Committing changes"
           if git commit -m "Upgrade DataDog agent for Java to v${DD_TARGET_VERSION}"; then
             git push
           else
-            echo "Nothing to be committed"
+            echo "Nothing to commit, skipping..."
             exit 0
           fi
