@@ -27,7 +27,7 @@ jobs:
         shell: bash
         run: |
           echo "Get Datadog target version from PR"
-          DD_TARGET_VERSION=v"$("${{ github.event.pull_request.title }}" | awk '{print $6}')"
+          DD_TARGET_VERSION=v"$(echo "${{ github.event.pull_request.title }}" | awk '{print $6}')"
 
           echo "Downloading Datadog agent version ${DD_TARGET_VERSION}"
           wget -O libs/dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/${DD_TARGET_VERSION}/dd-java-agent.jar"
