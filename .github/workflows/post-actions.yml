@@ -16,4 +16,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Update DataDog agent
-        run: echo ${{ github.event.pull_request.title }}
+        run: |
+          echo ${{ github.event.pull_request.title }}
+          TITLE=${{ github.event.pull_request.title }}
+          VERSION=$(echo $TITLE | sed 's/^.* \([^ ][^ ]*\)/\1/g')
+          echo $VERSION
+          wget -O dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/v${VERSION}/dd-java-agent.jar"
+          ls
