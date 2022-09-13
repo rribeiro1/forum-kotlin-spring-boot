@@ -22,16 +22,11 @@ jobs:
         run: |
           echo ${{ github.event.pull_request.title }}
           TITLE="${{ github.event.pull_request.title }}"
-          VERSION="$(echo $TITLE | sed 's/^.* \([^ ][^ ]*\)/\1/g')"
+          VERSION=v"$(echo $TITLE | sed 's/^.* \([^ ][^ ]*\)/\1/g')"
           echo $VERSION
-          wget -O dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/v${VERSION}/dd-java-agent.jar"
-          cp dd-java-agent.jar libs
+          wget -O dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/${VERSION}/dd-java-agent.jar" -P libs
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          echo "Git status"
-          echo $(git status)
-          echo "Git branch"
-          echo $(git branch)
-          git add .
-          git commit -m "Upgrade datadog agent version to ${VERSION}"
+          git add libs/dd-java-agent.jar
+          git commit -m "Upgrade DataDog agent for Java to v${VERSION}"
           git push
