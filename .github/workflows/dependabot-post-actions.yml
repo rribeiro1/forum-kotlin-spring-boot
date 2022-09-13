@@ -45,6 +45,6 @@ jobs:
           gh api --method PUT /repos/:owner/:repo/contents/$FILE_TO_COMMIT \
             --field message="$MESSAGE" \
             --field content=@<(base64 -i $FILE_TO_COMMIT) \
-            --field branch="$DESTINATION_BRANCH" \
+            --field branch="auto-merge" \
             --field sha="$SHA"
         if: ${{ steps.dependency-info.outputs.name == 'dd-trace-api' }}
