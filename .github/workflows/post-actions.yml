@@ -24,7 +24,7 @@ jobs:
           TITLE="${{ github.event.pull_request.title }}"
           VERSION=v"$(echo $TITLE | sed 's/^.* \([^ ][^ ]*\)/\1/g')"
           echo $VERSION
-          wget -O /libs/dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/${VERSION}/dd-java-agent.jar"
+          wget -O libs/dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/${VERSION}/dd-java-agent.jar"
           ls
           echo $(git status)
           git status
