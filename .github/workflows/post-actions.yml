@@ -17,4 +17,4 @@ jobs:
         uses: actions/github-script@v3
         with:
           script: |
-            echo github.event.pull_request.title
+            console.log(github.event.pull_request.title)
