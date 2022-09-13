@@ -24,24 +24,24 @@ jobs:
         run: echo "::set-output name=name::$(echo "${{ github.event.pull_request.title }}" | awk '{print $2}')"
 
       - name: Update DataDog agent
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
-          echo "Get Datadog target version from PR"
           DD_TARGET_VERSION=v"$(echo "${{ github.event.pull_request.title }}" | awk '{print $6}')"
-
           echo "Downloading Datadog agent version ${DD_TARGET_VERSION}"
           wget -O libs/dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/${DD_TARGET_VERSION}/dd-java-agent.jar"
 
-          echo "Configuring Github"
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
+          export DESTINATION_BRANCH=${{ github.event.pull_request.head.sha }}
+          export FILE_TO_COMMIT=libs/dd-java-agent.jar
+          export CONTENT=$(base64 -i $FILE_TO_COMMIT)
+          export MESSAGE="chore: Upgrade DataDog agent for Java to v${DD_TARGET_VERSION}"
+          export SHA=$(git rev-parse $DESTINATION_BRANCH:$FILE_TO_COMMIT)
 
-          echo "Committing changes"
-          git add libs/dd-java-agent.jar
-          if git commit -m "Upgrade DataDog agent for Java to v${DD_TARGET_VERSION}"; then
-            git push
-          else
-            echo "Nothing to commit, skipping..."
-            exit 0
-          fi
+          gh api --method PUT /repos/:owner/:repo/contents/$FILE_TO_COMMIT \
+            --field message="$MESSAGE" \
+            --field content="$CONTENT" \
+            --field encoding="base64" \
+            --field branch="$DESTINATION_BRANCH" \
+            --field sha="$SHA"
         if: ${{ steps.dependency-info.outputs.name == 'dd-trace-api' }}
