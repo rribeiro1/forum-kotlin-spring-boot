@@ -9,7 +9,7 @@ on:
 
 jobs:
   post-actions:
-    name: Post Actions
+    name: Dependabot Post Actions
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]' }}
     steps:
