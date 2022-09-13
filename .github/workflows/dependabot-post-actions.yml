@@ -21,7 +21,7 @@ jobs:
 
       - name: Get dependency name
         id: dependency-info
-        run: echo "::set-output name=name::$("${{ github.event.pull_request.title }}" | awk '{print $2}')"
+        run: echo "::set-output name=name::$(echo "${{ github.event.pull_request.title }}" | awk '{print $2}')"
 
       - name: Update DataDog agent
         shell: bash
