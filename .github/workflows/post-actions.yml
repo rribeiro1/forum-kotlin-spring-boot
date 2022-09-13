@@ -17,6 +17,12 @@ jobs:
         with:
           ref: auto-merge
 
+      - name: Get dependency name
+        id: dependency-info
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          echo "::set-output name=name::$(echo $PR_TITLE | awk '{print $2}')"
+
       - name: Update DataDog agent
         shell: bash
         run: |
@@ -39,3 +45,4 @@ jobs:
             echo "Nothing to commit, skipping..."
             exit 0
           fi
+        if: ${{ steps.dependency-info.outputs.name == 'dd-trace-api' }}
