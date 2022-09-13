@@ -37,6 +37,10 @@ jobs:
           export MESSAGE="chore: Upgrade DataDog agent for Java to v${DD_TARGET_VERSION}"
           export SHA=$(git rev-parse $DESTINATION_BRANCH:$FILE_TO_COMMIT)
 
+          echo $DESTINATION_BRANCH
+          echo "Test"
+          echo "${{ github.event.pull_request.head.sha }}"
+
           gh api --method PUT /repos/:owner/:repo/contents/$FILE_TO_COMMIT \
             --field message="$MESSAGE" \
             --field content=@<(base64 -i $FILE_TO_COMMIT) \
