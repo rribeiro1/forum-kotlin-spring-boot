@@ -1,6 +1,7 @@
 name: Post Actions
 
 on:
+  pull_request:
   push:
     branches:
       - '**'
