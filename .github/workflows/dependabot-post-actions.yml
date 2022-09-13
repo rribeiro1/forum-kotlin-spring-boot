@@ -16,7 +16,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
         with:
-          ref: auto-merge
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Get dependency name
         id: dependency-info
