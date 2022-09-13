@@ -26,6 +26,8 @@ jobs:
           echo $VERSION
           wget -O dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/${VERSION}/dd-java-agent.jar" -P libs
           ls
+          echo $(git status)
+          git status
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git add libs/dd-java-agent.jar
