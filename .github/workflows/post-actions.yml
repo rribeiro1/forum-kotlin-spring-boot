@@ -11,6 +11,7 @@ jobs:
   post-actions:
     name: Post Actions
     runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -19,16 +20,13 @@ jobs:
 
       - name: Get dependency name
         id: dependency-info
-        run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          echo "::set-output name=name::$("${{ github.event.pull_request.title }}" | awk '{print $2}')"
+        run: echo "::set-output name=name::$("${{ github.event.pull_request.title }}" | awk '{print $2}')"
 
       - name: Update DataDog agent
         shell: bash
         run: |
           echo "Get Datadog target version from PR"
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          DD_TARGET_VERSION=v"$(echo $PR_TITLE | awk '{print $6}')"
+          DD_TARGET_VERSION=v"$("${{ github.event.pull_request.title }}" | awk '{print $6}')"
 
           echo "Downloading Datadog agent version ${DD_TARGET_VERSION}"
           wget -O libs/dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/${DD_TARGET_VERSION}/dd-java-agent.jar"
