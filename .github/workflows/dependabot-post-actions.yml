@@ -34,7 +34,6 @@ jobs:
 
           export DESTINATION_BRANCH=${{ github.event.pull_request.head.sha }}
           export FILE_TO_COMMIT=libs/dd-java-agent.jar
-          export CONTENT=$(base64 -i $FILE_TO_COMMIT)
           export MESSAGE="chore: Upgrade DataDog agent for Java to v${DD_TARGET_VERSION}"
           export SHA=$(git rev-parse $DESTINATION_BRANCH:$FILE_TO_COMMIT)
 
