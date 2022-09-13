@@ -28,8 +28,8 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git add libs/dd-java-agent.jar
-          git commit -m "Upgrade DataDog agent for Java to v${DD_TARGET_VERSION}"
-          if [ $? -eq 0 ]; then
+          
+          if git commit -m "Upgrade DataDog agent for Java to v${DD_TARGET_VERSION}"; then
             git push
           else
             echo "Nothing to be committed"
