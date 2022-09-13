@@ -1,0 +1,20 @@
+name: Post Actions
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  post-actions:
+    name: Post Actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Update DataDog agent
+        uses: actions/github-script@v3
+        with:
+          script: |
+            echo github.event.pull_request.title
