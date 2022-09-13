@@ -25,6 +25,10 @@ jobs:
           cp dd-java-agent.jar libs
           git config --global user.email "rafael.pr10@gmail.com"
           git config --global user.name "Rafael Ribeiro"
+          echo "Git status"
+          echo $(git status)
+          echo "Git branch"
+          echo $(git branch)
           git add .
           git commit -m "Upgrade datadog agent version to ${VERSION}"
           git push origin HEAD:auto-merge
