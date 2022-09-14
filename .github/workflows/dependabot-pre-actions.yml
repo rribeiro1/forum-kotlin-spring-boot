@@ -1,17 +1,13 @@
 name: Dependabot Pre-actions
 
 on:
-  pull_request:
-  push:
-    branches:
-      - '**'
   pull_request_target:
 
 jobs:
   post-actions:
     name: Dependabot Pre-actions
     runs-on: ubuntu-latest
-    #if: ${{ github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]' }}
+    if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
