@@ -22,7 +22,7 @@ repositories {
 }
 
 val jupiterVersion = "5.9.0"
-val restAssuredVersion = "5.0.0"
+val restAssuredVersion = "5.2.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
