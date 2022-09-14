@@ -85,7 +85,7 @@ jobs:
     secrets: inherit
 
   dependabot-post-actions:
-    name: Dependabot Pre-actions
+    name: Dependabot Post-actions
     needs: dependabot-auto-approve
     uses: ./.github/workflows/dependabot-post-actions.yml
     secrets: inherit
