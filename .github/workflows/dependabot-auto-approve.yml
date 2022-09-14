@@ -3,13 +3,12 @@ name: Dependabot Approve and Merge
 on:
   workflow_call:
 
-permissions:
-  pull-requests: write
-
 jobs:
   approve-merge-dependabot:
     name: Workflow
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     # Checking the author will prevent your Action run failing on non-Dependabot PRs
     if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     steps:
