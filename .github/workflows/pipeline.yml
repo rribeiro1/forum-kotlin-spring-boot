@@ -11,13 +11,13 @@ on:
 jobs:
   dependabot-auto-approve:
     name: Automatically Apply and Merge Dependabot Patches
-    uses: ./.github/workflows/dependabot-auto-approve.yml@main
+    uses: ./.github/workflows/dependabot-auto-approve.yml
     secrets: inherit
 
   dependabot-post-actions:
     name: Dependabot Pre-actions
     needs: dependabot-auto-approve
-    uses: ./.github/workflows/dependabot-post-actions.yml@main
+    uses: ./.github/workflows/dependabot-post-actions.yml
     secrets: inherit
 
   build:
