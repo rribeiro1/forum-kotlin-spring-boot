@@ -1,0 +1,38 @@
+name: Dependabot Approve and Merge
+
+on:
+  workflow_call:
+
+permissions:
+  pull-requests: write
+
+jobs:
+  approve-merge-dependabot:
+    name: Automatically Approve and Merge Dependabot Patches
+    runs-on: ubuntu-latest
+    # Checking the author will prevent your Action run failing on non-Dependabot PRs
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    steps:
+      - name: Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v1.3.3
+
+      - uses: actions/checkout@v3
+
+      - name: Approve PR
+        run: |
+          gh pr checkout "$PR_URL"
+          if [ "$(gh pr status --json reviewDecision -q .currentBranch.reviewDecision)" != "APPROVED" ];
+          then gh pr review --approve "$PR_URL"
+          else echo "PR already approved, skipping additional approvals to minimize emails/notification noise.";
+          fi
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge PR
+        if: ${{ steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch'}}
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
