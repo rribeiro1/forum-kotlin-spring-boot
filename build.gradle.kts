@@ -36,7 +36,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
-	implementation("org.hibernate:hibernate-validator:7.0.4.Final")
+	implementation("org.hibernate:hibernate-validator:8.0.0.Final")
 	implementation("javax.validation:validation-api:2.0.1.Final")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("me.paulschwarz:spring-dotenv:2.5.4")
