@@ -15,6 +15,7 @@ jobs:
     secrets: inherit
     permissions:
       pull-requests: write
+      contents: write
 
   dependabot-post-actions:
     name: Dependabot Pre-actions
