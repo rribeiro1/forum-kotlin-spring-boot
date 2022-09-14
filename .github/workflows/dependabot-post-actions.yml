@@ -5,7 +5,6 @@ on:
 
 jobs:
   post-actions:
-    name: Dependabot Post-actions
     runs-on: ubuntu-latest
     # Checking the author will prevent your Action run failing on non-Dependabot PRs
     if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}

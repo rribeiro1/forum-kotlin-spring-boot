@@ -8,7 +8,6 @@ permissions:
 
 jobs:
   approve-merge-dependabot:
-    name: Automatically Approve and Merge Dependabot Patches
     runs-on: ubuntu-latest
     # Checking the author will prevent your Action run failing on non-Dependabot PRs
     if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
