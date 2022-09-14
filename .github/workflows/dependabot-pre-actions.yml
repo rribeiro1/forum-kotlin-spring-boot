@@ -10,13 +10,13 @@ jobs:
   post-actions:
     name: Dependabot Pre-actions
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]' }}
+    #if: ${{ github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]' }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
         with:
           persist-credentials: false
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.head_ref }}
 
       - name: Get dependency name
         id: dependency-info
@@ -31,7 +31,7 @@ jobs:
           echo "Downloading Datadog agent version ${DD_TARGET_VERSION}"
           wget -O libs/dd-java-agent.jar "https://github.com/DataDog/dd-trace-java/releases/download/${DD_TARGET_VERSION}/dd-java-agent.jar"
 
-          export DESTINATION_BRANCH=${{ github.event.pull_request.head.sha }}
+          export DESTINATION_BRANCH=${{ github.head_ref }}
           export FILE_TO_COMMIT=libs/dd-java-agent.jar
           export MESSAGE="chore: Update DataDog Agent for Java to ${DD_TARGET_VERSION}"
           export SHA=$(git rev-parse $DESTINATION_BRANCH:$FILE_TO_COMMIT)
@@ -39,6 +39,6 @@ jobs:
           gh api --method PUT /repos/:owner/:repo/contents/$FILE_TO_COMMIT \
             --field message="$MESSAGE" \
             --field content=@<(base64 -i $FILE_TO_COMMIT) \
-            --field branch="${{ github.head_ref }}" \
+            --field branch="$DESTINATION_BRANCH" \
             --field sha="$SHA"
         if: ${{ steps.dependency-info.outputs.name == 'dd-trace-api' }}
