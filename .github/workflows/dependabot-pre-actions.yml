@@ -1,6 +1,7 @@
 name: Dependabot Pre-actions
 
 on:
+  pull_request:
   push:
     branches:
       - '**'
