@@ -13,6 +13,8 @@ jobs:
     name: Automatically Apply and Merge Dependabot Patches
     uses: ./.github/workflows/dependabot-auto-approve.yml
     secrets: inherit
+    permissions:
+      pull-requests: write
 
   dependabot-post-actions:
     name: Dependabot Pre-actions
