@@ -9,17 +9,6 @@ on:
   pull_request_target:
 
 jobs:
-  dependabot-auto-approve:
-    name: Automatically Apply and Merge Dependabot Patches
-    uses: ./.github/workflows/dependabot-auto-approve.yml
-    secrets: inherit
-
-  dependabot-post-actions:
-    name: Dependabot Pre-actions
-    needs: dependabot-auto-approve
-    uses: ./.github/workflows/dependabot-post-actions.yml
-    secrets: inherit
-
   build:
     environment:
       name: build
@@ -88,3 +77,15 @@ jobs:
         with:
           paths: "build/test-results/test/TEST-*.xml"
         if: always()
+
+  dependabot-auto-approve:
+    name: Automatically Apply and Merge Dependabot Patches
+    needs: build
+    uses: ./.github/workflows/dependabot-auto-approve.yml
+    secrets: inherit
+
+  dependabot-post-actions:
+    name: Dependabot Pre-actions
+    needs: dependabot-auto-approve
+    uses: ./.github/workflows/dependabot-post-actions.yml
+    secrets: inherit
