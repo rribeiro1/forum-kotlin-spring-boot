@@ -1,10 +1,7 @@
 name: CI/CD Pipeline
 
 on:
-  push:
-    branches:
-      - 'master'
-
+  pull_request:
   # for dependabot, see: https://github.com/dependabot/dependabot-core/issues/3253#issuecomment-841656411
   pull_request_target:
 
@@ -84,8 +81,8 @@ jobs:
     uses: ./.github/workflows/dependabot-auto-approve.yml
     secrets: inherit
 
-  dependabot-post-actions:
-    name: Dependabot Post-actions
+  dependabot-actions:
+    name: Dependabot Actions
     needs: dependabot-auto-approve
-    uses: ./.github/workflows/dependabot-post-actions.yml
+    uses: ./.github/workflows/dependabot-actions.yml
     secrets: inherit

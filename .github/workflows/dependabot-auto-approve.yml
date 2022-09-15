@@ -7,8 +7,10 @@ jobs:
   approve-merge-dependabot:
     name: Workflow
     runs-on: ubuntu-latest
-    # Checking the author will prevent your Action run failing on non-Dependabot PRs
-    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    permissions:
+      pull-requests: write
+      contents: write
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'rafael.pr10@gmail.com' }}
     steps:
       - name: Dependabot metadata
         id: dependabot-metadata
@@ -32,4 +34,4 @@ jobs:
         run: gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{secrets.PAT_TOKEN}}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
