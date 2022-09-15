@@ -10,7 +10,7 @@ jobs:
     permissions:
       pull-requests: write
       contents: write
-    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'rribeiro1' }}
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     steps:
       - name: Dependabot metadata
         id: dependabot-metadata
