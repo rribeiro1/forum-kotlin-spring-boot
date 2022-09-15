@@ -6,12 +6,8 @@ on:
 jobs:
   post-actions:
     name: Workflow
-    permissions:
-      pull-requests: write
-      contents: write
     runs-on: ubuntu-latest
-    # Checking the author will prevent your Action run failing on non-Dependabot PRs
-    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'rafael.pr10@gmail.com' }}
     steps:
       - name: Dependabot metadata
         id: dependabot-metadata
