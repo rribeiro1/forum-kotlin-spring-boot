@@ -77,7 +77,6 @@ jobs:
 
   dependabot-auto-approve:
     name: Automatically Apply and Merge Dependabot Patches
-    needs: build
     uses: ./.github/workflows/dependabot-auto-approve.yml
     secrets: inherit
 
