@@ -6,7 +6,7 @@ plugins {
 	kotlin("jvm") version "1.7.10"
 	kotlin("plugin.spring") version "1.7.20"
 	kotlin("plugin.jpa") version "1.7.10"
-	kotlin("kapt") version "1.7.10"
+	kotlin("kapt") version "1.7.20"
 	id("com.diffplug.spotless") version "6.11.0"
 	id ("org.flywaydb.flyway") version "7.7.0"
 	id("jacoco")
