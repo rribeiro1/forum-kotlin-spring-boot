@@ -42,12 +42,12 @@ dependencies {
 	implementation("me.paulschwarz:spring-dotenv:2.5.4")
 
 	// -- Tracing
-	implementation("com.datadoghq:dd-trace-api:0.108.1")
+	implementation("com.datadoghq:dd-trace-api:0.110.0")
 	implementation("io.opentracing.contrib:opentracing-spring-web-starter:4.1.0")
 	runtimeOnly("net.logstash.logback:logstash-logback-encoder:7.2")
 	implementation("ch.qos.logback:logback-classic:1.4.3")
 	implementation("ch.qos.logback:logback-core:1.4.3")
-	implementation("com.datadoghq:dd-trace-api:0.107.1")
+	implementation("com.datadoghq:dd-trace-api:0.110.0")
 
 	runtimeOnly("org.flywaydb:flyway-core")
 	runtimeOnly("org.postgresql:postgresql")
