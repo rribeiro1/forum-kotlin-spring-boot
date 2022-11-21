@@ -45,7 +45,7 @@ dependencies {
 	implementation("com.datadoghq:dd-trace-api:0.108.1")
 	implementation("io.opentracing.contrib:opentracing-spring-web-starter:4.1.0")
 	runtimeOnly("net.logstash.logback:logstash-logback-encoder:7.2")
-	implementation("ch.qos.logback:logback-classic:1.4.4")
+	implementation("ch.qos.logback:logback-classic:1.4.5")
 	implementation("ch.qos.logback:logback-core:1.4.5")
 	implementation("com.datadoghq:dd-trace-api:0.107.1")
 
