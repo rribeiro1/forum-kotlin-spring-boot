@@ -58,7 +58,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.mockk:mockk:1.13.2")
 	testImplementation("com.ninja-squad:springmockk:3.1.1")
-	testImplementation("org.springframework.graphql:spring-graphql-test:1.0.2")
+	testImplementation("org.springframework.graphql:spring-graphql-test:1.1.0")
 	testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}")
 }
