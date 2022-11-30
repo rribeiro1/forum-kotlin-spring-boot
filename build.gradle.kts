@@ -56,7 +56,7 @@ dependencies {
 	testImplementation("io.rest-assured:json-path:${restAssuredVersion}")
 	testImplementation("io.rest-assured:xml-path:${restAssuredVersion}")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("io.mockk:mockk:1.13.2")
+	testImplementation("io.mockk:mockk:1.13.3")
 	testImplementation("com.ninja-squad:springmockk:3.1.2")
 	testImplementation("org.springframework.graphql:spring-graphql-test:1.1.0")
 	testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}")
