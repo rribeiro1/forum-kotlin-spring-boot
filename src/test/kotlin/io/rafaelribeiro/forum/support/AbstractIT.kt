@@ -7,7 +7,6 @@ import io.rafaelribeiro.forum.support.facades.TopicFacade
 import io.rafaelribeiro.forum.support.facades.UserFacade
 import io.restassured.RestAssured
 import io.restassured.config.ObjectMapperConfig
-import io.restassured.config.RestAssuredConfig
 import io.restassured.http.ContentType
 import io.restassured.parsing.Parser
 import io.restassured.specification.RequestSpecification
@@ -16,7 +15,6 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
-
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)

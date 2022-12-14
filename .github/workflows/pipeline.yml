@@ -74,14 +74,3 @@ jobs:
         with:
           paths: "build/test-results/test/TEST-*.xml"
         if: always()
-
-  dependabot-auto-approve:
-    name: Automatically Apply and Merge Dependabot Patches
-    uses: ./.github/workflows/dependabot-auto-approve.yml
-    secrets: inherit
-
-  dependabot-actions:
-    name: Dependabot Actions
-    needs: dependabot-auto-approve
-    uses: ./.github/workflows/dependabot-actions.yml
-    secrets: inherit
