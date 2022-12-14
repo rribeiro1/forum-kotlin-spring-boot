@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "3.0.0"
+	id("org.springframework.boot") version "2.7.5"
 	id("io.spring.dependency-management") version "1.1.0"
 	kotlin("jvm") version "1.7.22"
 	kotlin("plugin.spring") version "1.7.22"
@@ -21,16 +21,17 @@ repositories {
 	mavenCentral()
 }
 
-val jupiterVersion = "5.9.1"
-val restAssuredVersion = "5.3.0"
-
 dependencies {
+	// -- Spring
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-cache")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-graphql")
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+	// -- Others
 	implementation("org.springdoc:springdoc-openapi-ui:1.6.13")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -38,29 +39,24 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("org.hibernate:hibernate-validator:8.0.0.Final")
 	implementation("javax.validation:validation-api:2.0.1.Final")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
 	implementation("me.paulschwarz:spring-dotenv:2.5.4")
 
 	// -- Tracing
 	implementation("com.datadoghq:dd-trace-api:0.108.1")
 	implementation("io.opentracing.contrib:opentracing-spring-web-starter:4.1.0")
-	runtimeOnly("net.logstash.logback:logstash-logback-encoder:7.2")
-	implementation("ch.qos.logback:logback-classic:1.4.5")
-	implementation("ch.qos.logback:logback-core:1.4.5")
-	implementation("com.datadoghq:dd-trace-api:0.107.1")
 
+	// -- Database
 	runtimeOnly("org.flywaydb:flyway-core")
 	runtimeOnly("org.postgresql:postgresql")
 	runtimeOnly("com.h2database:h2")
-	testImplementation("io.rest-assured:rest-assured:${restAssuredVersion}")
-	testImplementation("io.rest-assured:json-path:${restAssuredVersion}")
-	testImplementation("io.rest-assured:xml-path:${restAssuredVersion}")
+
+	// -- Testing
+	testImplementation("io.rest-assured:rest-assured")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.mockk:mockk:1.13.3")
-	testImplementation("com.ninja-squad:springmockk:4.0.0")
+	testImplementation("com.ninja-squad:springmockk:3.1.2")
 	testImplementation("org.springframework.graphql:spring-graphql-test:1.1.0")
-	testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}")
-	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}")
 }
 
 tasks.withType<KotlinCompile> {
