@@ -43,7 +43,7 @@ dependencies {
 	implementation("me.paulschwarz:spring-dotenv:2.5.4")
 
 	// -- Tracing
-	implementation("com.datadoghq:dd-trace-api:0.108.1")
+	implementation("com.datadoghq:dd-trace-api:1.2.0")
 	implementation("io.opentracing.contrib:opentracing-spring-web-starter:4.1.0")
 
 	// -- Database
