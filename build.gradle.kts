@@ -22,7 +22,12 @@ repositories {
 }
 
 dependencies {
+	// -- Kotlin
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
 	// -- Spring
+	kapt("org.springframework.boot:spring-boot-configuration-processor")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-cache")
@@ -34,12 +39,8 @@ dependencies {
 	// -- Others
 	implementation("org.springdoc:springdoc-openapi-ui:1.6.13")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
-	implementation("org.hibernate:hibernate-validator:8.0.0.Final")
 	implementation("javax.validation:validation-api:2.0.1.Final")
-
 	implementation("me.paulschwarz:spring-dotenv:2.5.4")
 
 	// -- Tracing
@@ -50,13 +51,15 @@ dependencies {
 	runtimeOnly("org.flywaydb:flyway-core")
 	runtimeOnly("org.postgresql:postgresql")
 	runtimeOnly("com.h2database:h2")
+	implementation("org.hibernate:hibernate-jpamodelgen:5.6.7.Final")
+	implementation("org.hibernate:hibernate-validator:8.0.0.Final")
 
 	// -- Testing
 	testImplementation("io.rest-assured:rest-assured")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.mockk:mockk:1.13.3")
 	testImplementation("com.ninja-squad:springmockk:3.1.2")
-	testImplementation("org.springframework.graphql:spring-graphql-test:1.1.0")
+	testImplementation("org.springframework.graphql:spring-graphql-test")
 }
 
 tasks.withType<KotlinCompile> {
