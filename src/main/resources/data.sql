@@ -1,8 +1,20 @@
 INSERT INTO AUTHOR(name, email, pass) VALUES('Student', 'aluno@email.com', '$2a$10$JDsao6aF92byDOip4It4JOylqhKmYZegaMs0zl68o1tKGYnYNEdg6');
 INSERT INTO AUTHOR(name, email, pass) VALUES('Teacher', 'teacher@email.com', '123456');
 
-INSERT INTO COURSE(name, category) VALUES('Spring Boot', 'Development');
-INSERT INTO COURSE(name, category) VALUES('HTML 5', 'Front-end');
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('Spring Boot', 'Development', '2021-01-05 18:00:00', to_tsvector('Spring Boot'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('HTML 5', 'Front-end', '2021-02-05 18:00:00', to_tsvector('HTML 5'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('Android', 'Development', '2021-03-05 18:00:00', to_tsvector('Android'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('iOS', 'Development', '2021-04-05 18:00:00', to_tsvector('iOS'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('Kotlin', 'Development', '2021-06-05 18:00:00', to_tsvector('Kotlin'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('Sociology', 'Development', '2021-07-05 18:00:00', to_tsvector('Swift'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('Computing and IT', 'Development', '2021-08-05 18:00:00', to_tsvector('Computing and IT'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('Arts and Humanities', 'Development', '2021-09-05 18:00:00', to_tsvector('Arts and Humanities'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('Business and Management', 'Development', '2021-10-05 18:00:00', to_tsvector('Business and Management'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('Statistics', 'Development', '2021-11-05 18:00:00', to_tsvector('Statistics'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('Sport & Fitness', 'Development', '2021-12-05 18:00:00', to_tsvector('Sport & Fitness'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('Social Work', 'Development', '2022-01-05 18:00:00', to_tsvector('Social Work'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('Social Sciences', 'Development', '2022-02-05 18:00:00', to_tsvector('Social Sciences'));
+INSERT INTO COURSE(name, category, creation_date, name_tokens) VALUES('Mathematics', 'Development', '2022-03-05 18:00:00', to_tsvector('Mathematics'));
 
 INSERT INTO TOPIC(title, message, creation_date, status, author_id, course_id) VALUES('Doubt', 'Error while creating the project', '2019-05-05 18:00:00', 'NOT_ANSWERED', 1, 1);
 INSERT INTO TOPIC(title, message, creation_date, status, author_id, course_id) VALUES('Doubt 2', 'Project does not compile', '2019-05-05 19:00:00', 'NOT_ANSWERED', 1, 1);
