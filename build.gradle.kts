@@ -57,7 +57,7 @@ dependencies {
 	// -- Testing
 	testImplementation("io.rest-assured:rest-assured")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("io.mockk:mockk:1.13.3")
+	testImplementation("io.mockk:mockk:1.13.4")
 	testImplementation("com.ninja-squad:springmockk:3.1.2")
 	testImplementation("org.springframework.graphql:spring-graphql-test")
 }
