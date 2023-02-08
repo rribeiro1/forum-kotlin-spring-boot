@@ -51,7 +51,7 @@ dependencies {
 	runtimeOnly("org.flywaydb:flyway-core")
 	runtimeOnly("org.postgresql:postgresql")
 	runtimeOnly("com.h2database:h2")
-	implementation("org.hibernate:hibernate-jpamodelgen:5.6.7.Final")
+	implementation("org.hibernate:hibernate-jpamodelgen:6.1.7.Final")
 	implementation("org.hibernate:hibernate-validator:8.0.0.Final")
 
 	// -- Testing
