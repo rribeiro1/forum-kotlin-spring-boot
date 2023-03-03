@@ -32,6 +32,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
+      - name: Notify Slack
+        uses: 8398a7/action-slack@v3
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          status: warning
+          text: deployment was skipped
+          author_name: 'Deployment details'
+          fields: repo,message,commit,workflow
+
       - name: Cache Gradle packages
         uses: actions/cache@v2
         with:
