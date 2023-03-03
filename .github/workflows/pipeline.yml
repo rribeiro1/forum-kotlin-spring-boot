@@ -1,7 +1,10 @@
 name: CI/CD Pipeline
 
 on:
-  pull_request:
+  push:
+    branches:
+      - '**'
+      - "!master"
   # for dependabot, see: https://github.com/dependabot/dependabot-core/issues/3253#issuecomment-841656411
   pull_request_target:
 
@@ -46,7 +49,7 @@ jobs:
             {
               attachments: [{
                 color: 'warning',
-                text: ``${{ env.SERVICE_NAME }}` deployment for `${{ env.ENVIRONMENT }}` environment was skipped as the environment has been locked by another branch.`,
+                text: '`${{ env.SERVICE_NAME }}` deployment for `${{ env.ENVIRONMENT }}` environment was skipped as the environment has been locked by another branch.',
               }]
             }
           author_name: 'Deployment details'
