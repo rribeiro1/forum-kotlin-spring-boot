@@ -5,6 +5,10 @@ on:
   # for dependabot, see: https://github.com/dependabot/dependabot-core/issues/3253#issuecomment-841656411
   pull_request_target:
 
+env:
+  SERVICE_NAME: forum
+  ENVIRONMENT: test
+
 jobs:
   build:
     environment:
@@ -42,7 +46,7 @@ jobs:
             {
               attachments: [{
                 color: 'warning',
-                text: `${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} ${{ job.status }} in ${process.env.AS_TOOK}`,
+                text: `${{ env.SERVICE_NAME }} deployment for ${{ env.ENVIRONMENT }} environment was skipped as the environment has been locked by another branch.`,
               }]
             }
           author_name: 'Deployment details'
