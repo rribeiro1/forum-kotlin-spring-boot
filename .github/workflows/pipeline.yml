@@ -44,16 +44,10 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
-          status: custom
-          custom_payload: |
-            {
-              attachments: [{
-                color: 'warning',
-                text: '`${{ env.SERVICE_NAME }}` deployment for `${{ env.ENVIRONMENT }}` environment was skipped as the environment has been locked by another branch.',
-              }]
-            }
+          status: cancelled
+          text: test test
           author_name: 'Deployment details'
-          fields: repo,message,commit,workflow
+          fields: repo,message,commit,workflow,job
 
       - name: Cache Gradle packages
         uses: actions/cache@v2
