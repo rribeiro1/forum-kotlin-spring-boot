@@ -46,7 +46,7 @@ jobs:
             {
               attachments: [{
                 color: 'warning',
-                text: `${{ env.SERVICE_NAME }} deployment for ${{ env.ENVIRONMENT }} environment was skipped as the environment has been locked by another branch.`,
+                text: ``${{ env.SERVICE_NAME }}` deployment for `${{ env.ENVIRONMENT }}` environment was skipped as the environment has been locked by another branch.`,
               }]
             }
           author_name: 'Deployment details'
