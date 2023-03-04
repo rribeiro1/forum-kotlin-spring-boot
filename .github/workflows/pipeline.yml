@@ -68,7 +68,7 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: ${{github.workspace}}/build/reports/jacoco/test/jacoco.xml:jacoco
+          coverage-reports: ${{github.workspace}}/build/reports/jacoco/test/jacoco.xml
 
       - name: Publish Code Coverage (Code Climate)
         uses: paambaati/codeclimate-action@v2.7.5
