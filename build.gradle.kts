@@ -41,7 +41,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("javax.validation:validation-api:2.0.1.Final")
-	implementation("me.paulschwarz:spring-dotenv:2.5.4")
+	implementation("me.paulschwarz:spring-dotenv:3.0.0")
 
 	// -- Tracing
 	implementation("com.datadoghq:dd-trace-api:1.10.0")
