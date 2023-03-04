@@ -1,6 +1,10 @@
 name: CI/CD Pipeline
 
 on:
+  push:
+    branch:
+      - "!master"
+      - "*"
   pull_request:
   # for dependabot, see: https://github.com/dependabot/dependabot-core/issues/3253#issuecomment-841656411
   pull_request_target:
@@ -60,11 +64,19 @@ jobs:
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
 
-      - name: Publish Code Coverage
+      - run: ls -lt ${{github.workspace}}/build/reports/jacoco/test/
+
+      - name: Publish Code Coverage (Codacy)
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ${{github.workspace}}/build/reports/jacoco/test/jacoco*.xml
+
+      - name: Publish Code Coverage (Code Climate)
         uses: paambaati/codeclimate-action@v2.7.5
         with:
           coverageCommand: ./gradlew jacocoFixForCodeClimate
-          coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacoco.xml:jacoco
+          coverageLocations:
           debug: true
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
