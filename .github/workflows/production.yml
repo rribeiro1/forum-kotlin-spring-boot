@@ -3,11 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branch:
-      - "!master"
-      - "*"
-  pull_request:
-  # for dependabot, see: https://github.com/dependabot/dependabot-core/issues/3253#issuecomment-841656411
-  pull_request_target:
+      - "main"
 
 jobs:
   build:
@@ -71,18 +67,3 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: ${{github.workspace}}/build/reports/jacoco/test/jacoco*.xml
-
-      - name: Publish Code Coverage (Code Climate)
-        uses: paambaati/codeclimate-action@v2.7.5
-        with:
-          coverageCommand: ./gradlew jacocoFixForCodeClimate
-          coverageLocations:
-          debug: true
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-
-      - name: Test Summary
-        uses: test-summary/action@v1
-        with:
-          paths: "build/test-results/test/TEST-*.xml"
-        if: always()

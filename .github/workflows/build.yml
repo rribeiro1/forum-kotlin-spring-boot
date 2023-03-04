@@ -1,0 +1,87 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branch:
+      - "!master"
+      - "*"
+  # for dependabot, see: https://github.com/dependabot/dependabot-core/issues/3253#issuecomment-841656411
+  pull_request_target:
+
+jobs:
+  build:
+    environment:
+      name: build
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:12.6-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: forum
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 2s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Check Code linter
+        run: ./gradlew spotlessCheck
+
+      - name: Build & Test with Code Coverage
+        run: ./gradlew clean build jacocoTestReport jacocoTestCoverageVerification --stacktrace
+        env:
+          DATABASE_HOST: localhost:5432
+          DATABASE_NAME: forum
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: password
+
+      - name: Cleanup Gradle Cache
+        # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
+        # Restoring these files from a GitHub Actions cache might cause problems for future builds.
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
+
+      - run: ls -lt ${{github.workspace}}/build/reports/jacoco/test/
+
+      - name: Publish Code Coverage (Codacy)
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ${{github.workspace}}/build/reports/jacoco/test/jacoco*.xml
+
+      - name: Publish Code Coverage (Code Climate)
+        uses: paambaati/codeclimate-action@v2.7.5
+        with:
+          coverageCommand: ./gradlew jacocoFixForCodeClimate
+          coverageLocations:
+          debug: true
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+
+      - name: Test Summary
+        uses: test-summary/action@v1
+        with:
+          paths: "build/test-results/test/TEST-*.xml"
+        if: always()
