@@ -1,5 +1,6 @@
 ## Forum Application
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a02fadbaa6a44f51a8d45123d5617a70)](https://app.codacy.com/gh/rribeiro1/forum-kotlin-spring-boot?utm_source=github.com&utm_medium=referral&utm_content=rribeiro1/forum-kotlin-spring-boot&utm_campaign=Badge_Grade_Settings)
 [![CI/CD Pipeline](https://github.com/rribeiro1/forum-kotlin-spring-boot/actions/workflows/pipeline.yml/badge.svg)](https://github.com/rribeiro1/forum-kotlin-spring-boot/actions/workflows/pipeline.yml)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6cdcb074e10579edd89f/test_coverage)](https://codeclimate.com/github/rribeiro1/forum-kotlin-spring-boot/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/6cdcb074e10579edd89f/maintainability)](https://codeclimate.com/github/rribeiro1/forum-kotlin-spring-boot/maintainability)
