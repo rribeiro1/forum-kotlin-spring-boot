@@ -37,7 +37,7 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 
 	// -- Others
-	implementation("org.springdoc:springdoc-openapi-ui:1.6.13")
+	implementation("org.springdoc:springdoc-openapi-ui:1.6.15")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("javax.validation:validation-api:2.0.1.Final")
