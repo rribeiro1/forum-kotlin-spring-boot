@@ -7,8 +7,6 @@ on:
 
 jobs:
   build:
-    environment:
-      name: build
     name: Build & Test
     runs-on: ubuntu-latest
 
