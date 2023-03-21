@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branch:
-      - "main"
+      - "master"
 
 jobs:
   build:
@@ -59,8 +59,6 @@ jobs:
         run: |
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
-
-      - run: ls -lt ${{github.workspace}}/build/reports/jacoco/test/
 
       - name: Publish Code Coverage (Codacy)
         uses: codacy/codacy-coverage-reporter-action@v1
