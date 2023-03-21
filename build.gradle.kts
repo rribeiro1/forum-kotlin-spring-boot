@@ -56,6 +56,8 @@ dependencies {
 	implementation("org.hibernate:hibernate-validator:8.0.0.Final")
 
 	// -- Testing
+	testImplementation("org.testcontainers:testcontainers:1.16.3")
+	testImplementation("org.testcontainers:postgresql:1.16.3")
 	testImplementation("io.rest-assured:rest-assured")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.mockk:mockk:1.13.3")
@@ -81,9 +83,9 @@ jacoco {
 tasks.jacocoTestReport {
 	group = "Reporting"
 	reports {
-		xml.isEnabled = true
-		csv.isEnabled = false
-		html.isEnabled = false
+		xml.required.set(true)
+		csv.required.set(false)
+		html.required.set(false)
 	}
 }
 
