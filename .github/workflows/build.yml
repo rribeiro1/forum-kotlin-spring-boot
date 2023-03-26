@@ -10,6 +10,9 @@ on:
 
 jobs:
   build:
+    if: |
+      (github.event_name == 'push' && github.actor != 'dependabot[bot]') ||
+      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
     environment:
       name: build
     name: Build & Test
@@ -33,7 +36,14 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
 
       - name: Cache Gradle packages
         uses: actions/cache@v2
@@ -55,6 +65,7 @@ jobs:
           DATABASE_NAME: forum
           DATABASE_USERNAME: postgres
           DATABASE_PASSWORD: password
+          JWT_SECRET: FfupkfptnawsAFry8ghLzF3quVqVorQPfcXL8TQutW8ie7JuWNYD8vPFnE3EsNn3
 
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
@@ -63,8 +74,6 @@ jobs:
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
 
-      - run: ls -lt ${{github.workspace}}/build/reports/jacoco/test/
-
       - name: Publish Code Coverage (Codacy)
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
@@ -72,10 +81,10 @@ jobs:
           coverage-reports: ${{github.workspace}}/build/reports/jacoco/test/jacoco*.xml
 
       - name: Publish Code Coverage (Code Climate)
-        uses: paambaati/codeclimate-action@v2.7.5
+        uses: paambaati/codeclimate-action@v3.2.0
         with:
           coverageCommand: ./gradlew jacocoFixForCodeClimate
-          coverageLocations:
+          coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacoco.xml:jacoco
           debug: true
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}

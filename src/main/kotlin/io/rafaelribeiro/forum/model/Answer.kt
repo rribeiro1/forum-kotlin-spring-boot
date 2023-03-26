@@ -1,8 +1,8 @@
 package io.rafaelribeiro.forum.model
 
+import jakarta.persistence.Entity
+import jakarta.persistence.ManyToOne
 import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.ManyToOne
 
 @Entity
 class Answer(

@@ -1,8 +1,8 @@
 package io.rafaelribeiro.forum.model
 
+import jakarta.persistence.*
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
-import javax.persistence.*
 
 @Entity
 @NamedEntityGraph(
