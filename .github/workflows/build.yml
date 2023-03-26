@@ -62,6 +62,7 @@ jobs:
           DATABASE_NAME: forum
           DATABASE_USERNAME: postgres
           DATABASE_PASSWORD: password
+          JWT_SECRET: FfupkfptnawsAFry8ghLzF3quVqVorQPfcXL8TQutW8ie7JuWNYD8vPFnE3EsNn3
 
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
