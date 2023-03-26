@@ -1,8 +1,7 @@
 ## Forum Application
 
-[![CI/CD Pipeline](https://github.com/rribeiro1/forum-kotlin-spring-boot/actions/workflows/pipeline.yml/badge.svg)](https://github.com/rribeiro1/forum-kotlin-spring-boot/actions/workflows/pipeline.yml)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/6cdcb074e10579edd89f/test_coverage)](https://codeclimate.com/github/rribeiro1/forum-kotlin-spring-boot/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/6cdcb074e10579edd89f/maintainability)](https://codeclimate.com/github/rribeiro1/forum-kotlin-spring-boot/maintainability)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/221662af97db4831a2ccaba55a3f8ce7)](https://app.codacy.com/gh/rribeiro1/forum-kotlin-spring-boot/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/221662af97db4831a2ccaba55a3f8ce7)](https://app.codacy.com/gh/rribeiro1/forum-kotlin-spring-boot/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
 ### Built using
 
@@ -10,7 +9,7 @@
 - [Spring Security](https://spring.io/projects/spring-security)
 - [Postgres](https://www.postgresql.org/)
 - [Github Actions](https://docs.github.com/en/actions)
-- [Code Climate](https://codeclimate.com/)
+- [Code Climate](https://codeclimate.com/) and [Codacy](https://codacy.com)
 - [Instrumentation with Datadog](https://www.datadoghq.com/auto-instrumentation/)
 
 ### Getting started
