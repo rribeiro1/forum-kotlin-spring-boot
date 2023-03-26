@@ -2,14 +2,14 @@ package io.rafaelribeiro.forum.support
 
 import io.opentracing.util.GlobalTracer
 import io.rafaelribeiro.forum.security.ForumUserDetails
+import jakarta.servlet.FilterChain
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import java.util.*
-import javax.servlet.FilterChain
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 @Component
 class ExtraTracingFilter : OncePerRequestFilter() {

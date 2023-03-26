@@ -1,4 +1,4 @@
-FROM openjdk:11.0.13-jre-buster
+FROM eclipse-temurin:17.0.4.1_1-jre-focal
 
 RUN mkdir -p /app
 

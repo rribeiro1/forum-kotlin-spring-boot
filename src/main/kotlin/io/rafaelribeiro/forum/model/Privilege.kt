@@ -1,6 +1,6 @@
 package io.rafaelribeiro.forum.model
 
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 class Privilege(

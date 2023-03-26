@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "2.7.5"
+	id("org.springframework.boot") version "3.0.4"
 	id("io.spring.dependency-management") version "1.1.0"
 	kotlin("jvm") version "1.7.22"
 	kotlin("plugin.spring") version "1.7.22"
@@ -13,6 +13,8 @@ plugins {
 	id("idea")
 	id("java")
 }
+
+
 
 group = "io.rafaelribeiro"
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -38,11 +40,16 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 
 	// -- Others
-	implementation("org.springdoc:springdoc-openapi-ui:1.6.13")
+	implementation("jakarta.xml.bind:jakarta.xml.bind-api:4.0.0")
+	implementation("org.springdoc:springdoc-openapi-ui:1.6.15")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("javax.validation:validation-api:2.0.1.Final")
-	implementation("me.paulschwarz:spring-dotenv:2.5.4")
+	implementation("me.paulschwarz:spring-dotenv:3.0.0")
+
+	// -- JWT
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
 	// -- Tracing
 	implementation("com.datadoghq:dd-trace-api:1.10.0")
@@ -53,15 +60,15 @@ dependencies {
 	runtimeOnly("org.flywaydb:flyway-core")
 	runtimeOnly("org.postgresql:postgresql")
 	runtimeOnly("com.h2database:h2")
-	implementation("org.hibernate:hibernate-jpamodelgen:5.6.7.Final")
+	implementation("org.hibernate:hibernate-jpamodelgen:6.1.7.Final")
 	implementation("org.hibernate:hibernate-validator:8.0.0.Final")
 
 	// -- Testing
 	testImplementation("io.rest-assured:rest-assured")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("io.mockk:mockk:1.13.3")
-	testImplementation("com.ninja-squad:springmockk:3.1.2")
 	testImplementation("org.springframework.graphql:spring-graphql-test")
+	testImplementation("io.mockk:mockk:1.13.4")
+	testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
 tasks.withType<KotlinCompile> {

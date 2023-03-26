@@ -5,8 +5,7 @@ import io.jsonwebtoken.SignatureAlgorithm
 import io.rafaelribeiro.forum.config.JwtConfig
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Service
-import java.lang.Exception
-import java.util.Date
+import java.util.*
 
 @Service
 class TokenService(
@@ -18,25 +17,29 @@ class TokenService(
             .setIssuer("Forum API")
             .setSubject((authentication.principal as ForumUserDetails).id.toString())
             .setIssuedAt(creationDate)
-            .setExpiration((Date(creationDate.time + jwtConfig.expiration!!.toLong())))
+            .setExpiration((Date(creationDate.time + jwtConfig.expiration.toLong())))
             .signWith(SignatureAlgorithm.HS256, jwtConfig.secret)
             .compact()
     }
 
     fun isTokenValid(token: String): Boolean {
         return try {
-            Jwts.parser().setSigningKey(jwtConfig.secret).parseClaimsJws(token)
+            Jwts.parserBuilder()
+                .setSigningKey(jwtConfig.secret)
+                .build()
+                .parseClaimsJws(token)
             true
         } catch (e: Exception) {
             false
         }
     }
 
-    fun getUserId(token: String) = Jwts
-        .parser()
-        .setSigningKey(jwtConfig.secret)
-        .parseClaimsJws(token)
-        .body
-        .subject
-        .toLong()
+    fun getUserId(token: String) =
+        Jwts.parserBuilder()
+            .setSigningKey(jwtConfig.secret)
+            .build()
+            .parseClaimsJws(token)
+            .body
+            .subject
+            .toLong()
 }
