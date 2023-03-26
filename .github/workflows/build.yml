@@ -81,7 +81,7 @@ jobs:
         uses: paambaati/codeclimate-action@v3.2.0
         with:
           coverageCommand: ./gradlew jacocoFixForCodeClimate
-          coverageLocations:
+          coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacoco.xml:jacoco
           debug: true
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
