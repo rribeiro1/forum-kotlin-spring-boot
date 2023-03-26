@@ -10,6 +10,9 @@ on:
 
 jobs:
   build:
+    if: |
+      (github.event_name == 'push' && github.actor != 'dependabot[bot]') ||
+      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
     environment:
       name: build
     name: Build & Test
