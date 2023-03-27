@@ -19,14 +19,12 @@ class UnauthenticatedEntryPoint(
     override fun commence(request: HttpServletRequest, response: HttpServletResponse, authException: AuthenticationException) {
         val res = ServletServerHttpResponse(response)
 
-        val httpStatusCode = HttpStatus.FORBIDDEN
-
-        res.setStatusCode(httpStatusCode)
+        res.setStatusCode(HttpStatus.UNAUTHORIZED)
         res.servletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 
         val payload = objectMapper.writeValueAsString(
             AuthenticationErrorDto(
-                status = httpStatusCode,
+                status = HttpStatus.UNAUTHORIZED,
                 message = "Authentication error",
                 errors = listOf(authException.message.toString())
             )
