@@ -1,7 +1,7 @@
-package io.rafaelribeiro.forum.support
+package io.rafaelribeiro.forum.security
 
 import io.opentracing.util.GlobalTracer
-import io.rafaelribeiro.forum.security.ForumUserDetails
+import io.rafaelribeiro.forum.support.ContextHelper
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
