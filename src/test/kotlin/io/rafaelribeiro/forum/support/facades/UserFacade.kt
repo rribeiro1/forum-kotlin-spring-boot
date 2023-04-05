@@ -5,7 +5,7 @@ import io.mockk.every
 import io.rafaelribeiro.forum.model.Role
 import io.rafaelribeiro.forum.model.User
 import io.rafaelribeiro.forum.repository.UserRepository
-import io.rafaelribeiro.forum.security.TokenService
+import io.rafaelribeiro.forum.security.JwtService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
@@ -15,7 +15,7 @@ class UserFacade(
     private val passwordEncoder: PasswordEncoder
 ) {
     @SpykBean
-    private lateinit var tokenServiceMock: TokenService
+    private lateinit var jwtService: JwtService
 
     fun createAuthenticatedUser(name: String, email: String, password: String, role: Role): User {
         val user = User(name, email, passwordEncoder.encode(password)).apply {
@@ -23,13 +23,13 @@ class UserFacade(
         }
 
         userRepository.save(user)
-        mockAuthentication(user.id!!)
+        mockAuthentication(user.email)
         return user
     }
 
-    private fun mockAuthentication(userId: Long) {
-        every { tokenServiceMock.isTokenValid(any()) } returns true
-        every { tokenServiceMock.getUserId(any()) } returns userId
+    private fun mockAuthentication(email: String) {
+        every { jwtService.isTokenValid(any(), any()) } returns true
+        every { jwtService.extractUsername(any()) } returns email
     }
 
     fun resetDatabase() {

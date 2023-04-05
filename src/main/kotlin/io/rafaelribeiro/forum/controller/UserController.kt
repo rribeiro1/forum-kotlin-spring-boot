@@ -1,7 +1,7 @@
 package io.rafaelribeiro.forum.controller
 
 import io.rafaelribeiro.forum.dtos.user.UserDto
-import io.rafaelribeiro.forum.security.ForumUserDetails
+import io.rafaelribeiro.forum.model.User
 import io.rafaelribeiro.forum.service.UserService
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,7 +14,7 @@ class UserController(
     private val userService: UserService
 ) {
     @GetMapping
-    fun me(@AuthenticationPrincipal userDetails: ForumUserDetails): UserDto {
+    fun me(@AuthenticationPrincipal userDetails: User): UserDto {
         return UserDto.of(userService.findById(userDetails.id!!))
     }
 }
