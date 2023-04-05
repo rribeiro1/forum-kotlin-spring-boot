@@ -8,7 +8,7 @@
 - [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
 - [Spring Security](https://spring.io/projects/spring-security)
 - [Postgres](https://www.postgresql.org/)
-- [Github Actions](https://docs.github.com/en/actions)
+- [GitHub Actions](https://docs.github.com/en/actions)
 - [Code Climate](https://codeclimate.com/) and [Codacy](https://codacy.com)
 - [Instrumentation with Datadog](https://www.datadoghq.com/auto-instrumentation/)
 

@@ -3,6 +3,7 @@ package io.rafaelribeiro.forum.model
 import jakarta.persistence.*
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
 @NamedEntityGraph(
@@ -20,7 +21,7 @@ class User(
     val name: String,
     val email: String,
     val pass: String
-) : Audit() {
+) : Audit(), UserDetails {
     @ManyToMany
     @JoinTable(
         name = "author_roles",
@@ -28,19 +29,6 @@ class User(
         inverseJoinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")]
     )
     val roles: MutableSet<Role> = mutableSetOf()
-
-    @get:Transient
-    val grantedAuthorities: MutableCollection<GrantedAuthority>
-        get() = getAuthorities()
-
-    private fun getAuthorities(): MutableCollection<GrantedAuthority> {
-        val authorities: MutableList<GrantedAuthority> = ArrayList()
-        val privileges = getPrivileges(roles)
-        for (privilege in privileges) {
-            authorities.add(SimpleGrantedAuthority(privilege))
-        }
-        return authorities
-    }
 
     private fun getPrivileges(roles: Collection<Role>): MutableCollection<String> {
         val privileges: MutableCollection<String> = ArrayList()
@@ -54,4 +42,20 @@ class User(
         }
         return privileges
     }
+
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+        val authorities: MutableList<GrantedAuthority> = ArrayList()
+        val privileges = getPrivileges(roles)
+        for (privilege in privileges) {
+            authorities.add(SimpleGrantedAuthority(privilege))
+        }
+        return authorities
+    }
+
+    override fun getPassword() = pass
+    override fun getUsername() = email
+    override fun isAccountNonExpired() = true
+    override fun isAccountNonLocked() = true
+    override fun isCredentialsNonExpired() = true
+    override fun isEnabled() = true
 }

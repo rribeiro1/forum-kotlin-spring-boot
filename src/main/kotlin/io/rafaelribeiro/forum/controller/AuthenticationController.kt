@@ -2,7 +2,7 @@ package io.rafaelribeiro.forum.controller
 
 import io.rafaelribeiro.forum.dtos.auth.LoginDto
 import io.rafaelribeiro.forum.dtos.auth.TokenDto
-import io.rafaelribeiro.forum.security.TokenService
+import io.rafaelribeiro.forum.security.JwtService
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.web.bind.annotation.PostMapping
@@ -15,14 +15,14 @@ import javax.validation.Valid
 @RequestMapping("/auth")
 class AuthenticationController(
     private val authenticationManager: AuthenticationManager,
-    private val tokenService: TokenService
+    private val jwtService: JwtService
 ) {
 
     @PostMapping
     fun auth(@Valid @RequestBody loginDto: LoginDto): TokenDto {
         val credentials = UsernamePasswordAuthenticationToken(loginDto.email, loginDto.password)
         val authentication = authenticationManager.authenticate(credentials)
-        val token = tokenService.createToken(authentication)
+        val token = jwtService.createToken(authentication)
         return TokenDto.from("Bearer", token)
     }
 }

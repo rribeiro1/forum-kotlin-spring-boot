@@ -1,41 +1,39 @@
 package io.rafaelribeiro.forum.security
 
-import io.rafaelribeiro.forum.repository.UserRepository
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
 class TokenAuthenticationFilter(
-    private val tokenService: TokenService,
-    private val userRepository: UserRepository
+    private val jwtService: JwtService,
+    private val userDetailsService: UserDetailsService
 ) : OncePerRequestFilter() {
 
-    // Login endpoint does not execute this filter, token does not exist at this point.
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
-        val token = retrieveToken(request)
+        val authenticationHeader = request.getHeader("Authorization")
+        if (authenticationHeader == null || !authenticationHeader.startsWith("Bearer ")) {
+            return filterChain.doFilter(request, response)
+        }
 
-        try {
-            if (tokenService.isTokenValid(token)) {
-                val userId = tokenService.getUserId(token)
-                val user = userRepository.findById(userId).get()
-                val userDetails = ForumUserDetails(user)
+        val jwt = authenticationHeader.substring(7, authenticationHeader.length)
+        val userEmail = jwtService.extractUsername(jwt)
+
+        if (userEmail != null && SecurityContextHolder.getContext().authentication == null) {
+            val userDetails = userDetailsService.loadUserByUsername(userEmail)
+            if (jwtService.isTokenValid(jwt, userDetails)) {
                 val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
+                authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = authentication
             }
-        } finally {
-            filterChain.doFilter(request, response)
         }
-    }
 
-    private fun retrieveToken(request: HttpServletRequest): String {
-        val token = request.getHeader("Authorization")
-        return if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
-            ""
-        } else token.substring(7, token.length)
+        filterChain.doFilter(request, response)
     }
 }

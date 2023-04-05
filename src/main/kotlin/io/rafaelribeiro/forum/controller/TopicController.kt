@@ -3,7 +3,7 @@ package io.rafaelribeiro.forum.controller
 import io.rafaelribeiro.forum.dtos.topic.TopicCreateDto
 import io.rafaelribeiro.forum.dtos.topic.TopicDto
 import io.rafaelribeiro.forum.dtos.topic.TopicUpdateDto
-import io.rafaelribeiro.forum.security.ForumUserDetails
+import io.rafaelribeiro.forum.model.User
 import io.rafaelribeiro.forum.service.TopicService
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
@@ -26,7 +26,7 @@ class TopicController(
     @PreAuthorize("hasAuthority('READ_TOPIC')")
     fun getById(
         @PathVariable id: Long,
-        @AuthenticationPrincipal userDetails: ForumUserDetails
+        @AuthenticationPrincipal userDetails: User
     ) = TopicDto.of(topicService.getById(id))
 
     @GetMapping
@@ -44,7 +44,7 @@ class TopicController(
     @PreAuthorize("hasAuthority('CREATE_TOPIC')")
     fun create(
         @Valid @RequestBody input: TopicCreateDto,
-        @AuthenticationPrincipal userDetails: ForumUserDetails
+        @AuthenticationPrincipal userDetails: User
     ) = TopicDto.of(topicService.create(input.title, input.message, input.courseName, userDetails.id!!))
 
     @PutMapping("/{id}")

@@ -1,6 +1,7 @@
 package io.rafaelribeiro.forum.security
 
 import io.opentracing.util.GlobalTracer
+import io.rafaelribeiro.forum.model.User
 import io.rafaelribeiro.forum.support.ContextHelper
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -24,14 +25,14 @@ class ExtraTracingFilter : OncePerRequestFilter() {
         try {
             val authentication = SecurityContextHolder.getContext()?.authentication
 
-            if (authentication?.isAuthenticated == true && authentication.principal is ForumUserDetails) {
+            if (authentication?.isAuthenticated == true && authentication.principal is User) {
                 val span = GlobalTracer.get().activeSpan()
 
                 if (span != null) {
-                    val principal = authentication.principal as ForumUserDetails
+                    val principal = authentication.principal as User
 
                     val userId = principal.id.toString()
-                    val userEmail = principal.user.email
+                    val userEmail = principal.email
                     val headerRequestId = request.getHeader("X-REQUEST-ID")
                     val requestId = headerRequestId ?: UUID.randomUUID().toString()
 
