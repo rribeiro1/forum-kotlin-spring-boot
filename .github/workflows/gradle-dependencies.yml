@@ -2,11 +2,10 @@ name: "Gradle Dependency Submission"
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * *" # Run every day at midnight
   push:
     branches:
       - main
-      - gradle-dependabot-security-v2
 
 jobs:
   build:
