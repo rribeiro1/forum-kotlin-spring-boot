@@ -61,6 +61,10 @@ dependencies {
 	implementation("org.hibernate:hibernate-jpamodelgen:6.1.7.Final")
 	implementation("org.hibernate:hibernate-validator:8.0.0.Final")
 
+	// -- Support for different file types
+	implementation("com.openhtmltopdf:openhtmltopdf-pdfbox:1.0.10")
+	implementation("org.jsoup:jsoup:1.16.1")
+
 	// -- Testing
 	testImplementation("io.rest-assured:rest-assured")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
