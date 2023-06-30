@@ -12,5 +12,5 @@ on:
 jobs:
   gradle-dependency-submission:
     name: Gradle Dependency Submission
-    uses: ./.github/workflows/gradle-dependency-submission.yml@main
+    uses: ./.github/workflows/gradle-dependency-submission.yml
     secrets: inherit
