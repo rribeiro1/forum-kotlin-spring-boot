@@ -1,0 +1,16 @@
+name: Dependabot Security Updates
+
+on:
+  push:
+    branches:
+      - main # Only run on the main branch (Required by the Dependency Submission API).
+    paths:
+      - 'build.gradle.kts'
+      - 'build.gradle'
+  workflow_dispatch:
+
+jobs:
+  gradle-dependency-submission:
+    name: Gradle Dependency Submission
+    uses: .github/workflows/gradle-dependency-submission.yml@main
+    secrets: inherit

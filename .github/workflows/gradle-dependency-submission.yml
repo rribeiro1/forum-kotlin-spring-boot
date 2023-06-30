@@ -1,18 +1,11 @@
 name: "Gradle Dependency Submission"
 
 on:
-  schedule:
-    - cron: "0 0 * * *" # Run every day at midnight
-  push:
-    branches:
-      - main # Only run on the main branch (Required by the Dependency Submission API).
-    paths:
-      - 'build.gradle.kts'
-      - 'build.gradle'
+  workflow_call:
 
 jobs:
   build:
-    name: Dependencies
+    name: Dependabot Security Alerts
     runs-on: ubuntu-latest
     permissions: # The Dependency Submission API requires write permission
       contents: write
