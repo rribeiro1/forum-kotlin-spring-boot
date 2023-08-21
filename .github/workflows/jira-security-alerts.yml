@@ -1,0 +1,25 @@
+name: GitHub Security Alerts for Jira
+
+on:
+  # schedule:
+    # Every 5 minutes
+    # - cron: '*/5 * * * *'
+  push:
+    branches:
+      - "**"
+
+jobs:
+  syncSecurityAlerts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Sync security alerts to Jira issues"
+        uses: reload/github-security-jira@v1.3.1
+        env:
+          GH_SECURITY_TOKEN: ${{ secrets.GH_SECURITY_TOKEN }}
+          JIRA_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_HOST: ${{ secrets.JIRA_HOST }}
+          JIRA_USER: ${{ secrets.JIRA_USER }}
+          JIRA_PROJECT: RIB
+          JIRA_ISSUE_TYPE: Task
+          JIRA_ISSUE_LABELS: Security
+          JIRA_WATCHERS: someuser@reload.dk,someotheruser@reload.dk
