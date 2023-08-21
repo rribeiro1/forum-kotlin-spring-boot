@@ -22,4 +22,3 @@ jobs:
           JIRA_PROJECT: RIB
           JIRA_ISSUE_TYPE: Task
           JIRA_ISSUE_LABELS: Security
-          JIRA_WATCHERS: someuser@reload.dk,someotheruser@reload.dk
