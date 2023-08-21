@@ -22,4 +22,4 @@ jobs:
           JIRA_PROJECT: RIB
           JIRA_ISSUE_TYPE: Task
           JIRA_ISSUE_LABELS: Security
-          JIRA_RESTRICTED_COMMENT_ROLE: Developers
+          JIRA_RESTRICTED_COMMENT_ROLE: Administrators
