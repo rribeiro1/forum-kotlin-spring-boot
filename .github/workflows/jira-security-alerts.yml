@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Sync security alerts to Jira issues"
-        uses: rribeiro1/github-alerts-jira-sync@v0.0.3
+        uses: rribeiro1/github-alerts-jira-sync@main
         env:
           GITHUB_TOKEN: ${{ secrets.GH_SECURITY_TOKEN }}
           REPO_OWNER: rribeiro1
