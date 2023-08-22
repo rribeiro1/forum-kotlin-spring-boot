@@ -9,17 +9,18 @@ on:
       - "**"
 
 jobs:
-  syncSecurityAlerts:
+  sync-github-alerts-jira:
     runs-on: ubuntu-latest
     steps:
       - name: "Sync security alerts to Jira issues"
-        uses: reload/github-security-jira@v1.3.1
+        uses: rribeiro1/github-alerts-jira-sync@v0.0.1
         env:
-          GH_SECURITY_TOKEN: ${{ secrets.GH_SECURITY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_SECURITY_TOKEN }}
+          REPO_OWNER: rribeiro1
+          REPO_NAME: forum-kotlin-spring-boot
+          JIRA_SERVER: ${{ secrets.JIRA_HOST }}
+          JIRA_USERNAME: ${{ secrets.JIRA_USER }}
           JIRA_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-          JIRA_HOST: ${{ secrets.JIRA_HOST }}
-          JIRA_USER: ${{ secrets.JIRA_USER }}
-          JIRA_PROJECT: RIB
-          JIRA_ISSUE_TYPE: Task
-          JIRA_ISSUE_LABELS: Security
-          JIRA_RESTRICTED_COMMENT_ROLE: Administrators
+          JIRA_PROJECT_KEY: RIB
+          JIRA_CUSTOM_FIELDS: {"customfield_10037":"Backend"}
+          JIRA_SUMMARY_PREFIX: "[Security]"
