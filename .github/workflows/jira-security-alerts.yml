@@ -14,13 +14,13 @@ jobs:
     steps:
       - name: "Sync security alerts to Jira issues"
         uses: rribeiro1/github-alerts-jira-sync@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_SECURITY_TOKEN }}
-          REPO_OWNER: rribeiro1
-          REPO_NAME: forum-kotlin-spring-boot
-          JIRA_SERVER: ${{ secrets.JIRA_HOST }}
-          JIRA_USERNAME: ${{ secrets.JIRA_USER }}
-          JIRA_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-          JIRA_PROJECT_KEY: RIB
-          JIRA_CUSTOM_FIELDS: '{"customfield_10037":"Backend"}'
-          JIRA_SUMMARY_PREFIX: "[Security]"
+        with:
+          github_token: ${{ secrets.GH_SECURITY_TOKEN }}
+          repo_owner: rribeiro1
+          repo_name: forum-kotlin-spring-boot
+          jira_server: ${{ secrets.JIRA_HOST }}
+          jira_username: ${{ secrets.JIRA_USER }}
+          jira_token: ${{ secrets.JIRA_API_TOKEN }}
+          jira_project_key: RIB
+          jira_custom_fields: '{"customfield_10037":"Backend"}'
+          jira_summary_prefix: "[Security]"
