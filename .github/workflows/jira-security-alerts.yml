@@ -22,5 +22,5 @@ jobs:
           JIRA_USERNAME: ${{ secrets.JIRA_USER }}
           JIRA_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
           JIRA_PROJECT_KEY: RIB
-          JIRA_CUSTOM_FIELDS: {"customfield_10037":"Backend"}
+          JIRA_CUSTOM_FIELDS: '{"customfield_10037":"Backend"}'
           JIRA_SUMMARY_PREFIX: "[Security]"
