@@ -35,10 +35,4 @@ class ValidationErrorHandler(
     fun handleAuthenticationErrorException(exception: BadCredentialsException): ErrorDto {
         return ErrorDto("username", exception.localizedMessage)
     }
-
-    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Exception::class)
-    fun handleException(exception: Exception): ErrorDto {
-        return ErrorDto("Internal server error", "Contact support of the service")
-    }
 }
