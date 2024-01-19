@@ -8,6 +8,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import java.util.*
 
 class AuthorizationServiceIT(
     @Autowired private val underTest: AuthorizationService
@@ -31,6 +32,6 @@ class AuthorizationServiceIT(
     fun `should test whether a topic belongs to the user`() {
         assertThat(underTest.topicBelongsToUser(user.id!!, topic.id!!)).isTrue
         assertThat(underTest.topicBelongsToUser(anotherUser.id!!, topic.id!!)).isFalse
-        assertThat(underTest.topicBelongsToUser(anotherUser.id!!, Long.MAX_VALUE)).isFalse
+        assertThat(underTest.topicBelongsToUser(anotherUser.id!!, UUID.randomUUID())).isFalse
     }
 }

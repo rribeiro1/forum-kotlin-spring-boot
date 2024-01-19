@@ -4,6 +4,7 @@ import io.rafaelribeiro.forum.model.Course
 import io.rafaelribeiro.forum.model.Course_
 import org.springframework.data.jpa.domain.Specification
 import java.time.LocalDateTime
+import java.util.*
 
 data class CourseFilterDto(
     val name: String?,
@@ -11,6 +12,13 @@ data class CourseFilterDto(
     val from: LocalDateTime?,
     val to: LocalDateTime?
 ) {
+    companion object {
+        fun idIn(courseIds: List<UUID>): Specification<Course> {
+            return Specification { root, _, _ ->
+                return@Specification root.get(Course_.id).`in`(setOf(courseIds))
+            }
+        }
+    }
     fun toSpecification(): Specification<Course> {
         return Specification { root, _, builder ->
 

@@ -2,9 +2,10 @@ package io.rafaelribeiro.forum.dtos.topic
 
 import io.rafaelribeiro.forum.model.Topic
 import java.time.LocalDateTime
+import java.util.UUID
 
 data class TopicDto(
-    val id: Long,
+    val id: UUID,
     val title: String,
     val message: String,
     val creationDate: LocalDateTime

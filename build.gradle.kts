@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "3.0.5"
+	id("org.springframework.boot") version "3.2.1"
 	id("io.spring.dependency-management") version "1.1.0"
 	kotlin("jvm") version "1.7.22"
 	kotlin("plugin.spring") version "1.7.22"
@@ -58,7 +58,7 @@ dependencies {
 	runtimeOnly("org.flywaydb:flyway-core")
 	runtimeOnly("org.postgresql:postgresql")
 	runtimeOnly("com.h2database:h2")
-	implementation("org.hibernate:hibernate-jpamodelgen:6.1.7.Final")
+	implementation("org.hibernate:hibernate-jpamodelgen:6.4.2.Final")
 	implementation("org.hibernate:hibernate-validator:8.0.0.Final")
 
 	// -- Support for different file types

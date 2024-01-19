@@ -14,6 +14,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.LocalTime.MAX
 import java.time.LocalTime.MIN
+import java.util.*
 
 @RestController
 @RequestMapping("/courses")
@@ -30,6 +31,9 @@ class CourseController(
         from: String?,
         to: String?
     ) = courseService.search(CourseFilterDto(name, category, from.toLocalDateTime(), to.toLocalDateTime(MAX)), pageable)
+
+    @GetMapping("/ids")
+    fun idsIn() = courseService.idsIn(listOf(UUID.randomUUID()))
 
     private fun String?.toLocalDateTime(time: LocalTime = MIN) =
         this?.let { LocalDateTime.of(LocalDate.parse(it), time) }

@@ -2,9 +2,10 @@ package io.rafaelribeiro.forum.dtos.user
 
 import io.rafaelribeiro.forum.model.User
 import io.rafaelribeiro.forum.support.DtoFactory
+import java.util.UUID
 
 data class UserDto(
-    val id: Long,
+    val id: UUID,
     val name: String,
     val email: String,
     val roles: List<RoleDto>

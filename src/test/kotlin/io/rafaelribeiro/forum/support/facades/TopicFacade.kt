@@ -6,11 +6,12 @@ import io.rafaelribeiro.forum.model.User
 import io.rafaelribeiro.forum.repository.TopicRepository
 import io.rafaelribeiro.forum.support.ResourceNotFoundException
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class TopicFacade(private val topicRepository: TopicRepository) {
 
-    fun findById(id: Long): Topic {
+    fun findById(id: UUID): Topic {
         return topicRepository.findById(id).orElseThrow {
             throw ResourceNotFoundException(id.toString(), Topic::class)
         }

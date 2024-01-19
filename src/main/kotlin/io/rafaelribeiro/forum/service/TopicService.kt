@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.UUID
 
 @Service
 class TopicService(
@@ -22,14 +23,14 @@ class TopicService(
 
     @Transactional(readOnly = true)
     @PreAuthorize("@authorizationService.topicBelongsToUser(principal.id, #id)")
-    fun getById(id: Long): Topic {
+    fun getById(id: UUID): Topic {
         return topicRepository.findById(id).orElseThrow {
             throw ResourceNotFoundException(id.toString(), Topic::class)
         }
     }
 
     @Transactional
-    fun create(title: String, message: String, courseName: String, userId: Long): Topic {
+    fun create(title: String, message: String, courseName: String, userId: UUID): Topic {
         val user = userService.findById(userId)
         val course = courseService.findCourse(courseName)
         val topic = Topic(title, message, course, user)
@@ -38,7 +39,7 @@ class TopicService(
 
     @Transactional
     @PreAuthorize("@authorizationService.topicBelongsToUser(principal.id, #id)")
-    fun update(id: Long, title: String?, message: String?): Topic {
+    fun update(id: UUID, title: String?, message: String?): Topic {
         val topic = getById(id)
 
         val editedTopic = topic.copy(
@@ -51,5 +52,5 @@ class TopicService(
 
     @Transactional
     @PreAuthorize("@authorizationService.topicBelongsToUser(principal.id, #topicId)")
-    fun delete(topicId: Long) = topicRepository.deleteById(topicId)
+    fun delete(topicId: UUID) = topicRepository.deleteById(topicId)
 }

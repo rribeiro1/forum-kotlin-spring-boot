@@ -15,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
+import java.util.UUID
 import javax.validation.Valid
 
 @RestController
@@ -25,7 +26,7 @@ class TopicController(
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('READ_TOPIC')")
     fun getById(
-        @PathVariable id: Long,
+        @PathVariable id: UUID,
         @AuthenticationPrincipal userDetails: User
     ) = TopicDto.of(topicService.getById(id))
 
@@ -51,12 +52,12 @@ class TopicController(
     @CacheEvict("topic-list", allEntries = true)
     @PreAuthorize("hasAuthority('UPDATE_TOPIC')")
     fun update(
-        @PathVariable id: Long,
+        @PathVariable id: UUID,
         @Valid @RequestBody input: TopicUpdateDto
     ) = TopicDto.of(topicService.update(id, input.title, input.message))
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('DELETE_TOPIC')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun delete(@PathVariable id: Long) = topicService.delete(id)
+    fun delete(@PathVariable id: UUID) = topicService.delete(id)
 }

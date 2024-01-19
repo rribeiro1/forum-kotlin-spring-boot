@@ -21,7 +21,7 @@ class TopicServiceTest(
 
     @Test
     fun `should throw ResourceNotFound exception when the topic is not found`() {
-        val notFoundTopic = 1L
+        val notFoundTopic = UUID.randomUUID()
         every { topicRepositoryMock.findById(notFoundTopic) } returns Optional.empty()
 
         val exception = assertThrows<ResourceNotFoundException> {

@@ -19,7 +19,7 @@ class UserServiceTest(
 
     @Test
     fun `should throw ResourceNotFound exception when the user is not found`() {
-        val notFoundUser = 1L
+        val notFoundUser = UUID.randomUUID()
         every { userRepositoryMock.findById(notFoundUser) } returns Optional.empty()
 
         val exception = assertThrows<ResourceNotFoundException> {

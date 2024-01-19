@@ -1,13 +1,18 @@
 package io.rafaelribeiro.forum.model
 
 import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.MappedSuperclass
+import org.hibernate.annotations.GenericGenerator
+import java.util.UUID
 
 @MappedSuperclass
 abstract class Audit {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+        name = "UUID",
+        strategy = "org.hibernate.id.UUIDGenerator",
+    )
+    var id: UUID? = null
 }

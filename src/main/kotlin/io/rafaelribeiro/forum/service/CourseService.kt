@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.UUID
 
 @Service
 class CourseService(
@@ -19,5 +20,9 @@ class CourseService(
 
     fun search(filter: CourseFilterDto, pageable: Pageable): Page<Course> {
         return courseRepository.findAll(filter.toSpecification(), pageable)
+    }
+
+    fun idsIn(courseIds: List<UUID>): List<Course> {
+        return courseRepository.findAll(CourseFilterDto.idIn(courseIds))
     }
 }
