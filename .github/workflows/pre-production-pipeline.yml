@@ -1,0 +1,81 @@
+name: Pre-Prod CI/CD Pipeline
+
+on:
+  pull_request:
+  pull_request_target: # for dependabot, see: https://github.com/dependabot/dependabot-core/issues/3253#issuecomment-841656411
+  workflow_dispatch:
+
+jobs:
+  build:
+    if: |
+      (github.event_name == 'pull_request' && github.actor != 'dependabot[bot]') ||
+      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
+      (github.event_name == 'workflow_dispatch')
+    environment:
+      name: build
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Check Code linter
+        run: ./gradlew spotlessCheck
+
+      - name: Build
+        run: ./gradlew build -x test
+
+  dependabot-merge:
+    name: Automatically Apply and Merge Dependabot Patches
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pull-requests: write
+      contents: write
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    steps:
+      - name: Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v1.3.6
+
+      - name: Display metadata
+        run: |
+          echo ${{ steps.dependabot-metadata.outputs.dependency-names }}
+          echo ${{ steps.dependabot-metadata.outputs.update-type }}
+
+      - uses: actions/checkout@v3
+
+      - name: Approve PR
+        run: |
+          gh pr checkout "$PR_URL"
+          if [ "$(gh pr status --json reviewDecision -q .currentBranch.reviewDecision)" != "APPROVED" ];
+          then gh pr review --approve "$PR_URL"
+          else echo "PR already approved, skipping additional approvals to minimize emails/notification noise.";
+          fi
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge PR
+        # if: steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch'
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

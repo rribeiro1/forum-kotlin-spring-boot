@@ -1,14 +1,14 @@
-name: CI/CD Pipeline
+name: Prod CI/CD Pipeline
 
 on:
   push:
-  pull_request_target:
+    branches:
+      - 'main'
+  # Allows running the workflow manually via the actions tab
+  workflow_dispatch:
 
 jobs:
   build:
-    if: |
-      (github.event_name == 'push' && github.actor != 'dependabot[bot]') ||
-      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
     environment:
       name: build
     name: Build & Test
