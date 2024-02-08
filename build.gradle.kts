@@ -63,7 +63,7 @@ dependencies {
 
 	// -- Support for different file types
 	implementation("com.openhtmltopdf:openhtmltopdf-pdfbox:1.0.10")
-	implementation("org.jsoup:jsoup:1.16.1")
+	implementation("org.jsoup:jsoup:1.17.2")
 
 	// -- Testing
 	testImplementation("io.rest-assured:rest-assured")
