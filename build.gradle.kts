@@ -42,7 +42,7 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-ui:1.7.0")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("javax.validation:validation-api:2.0.1.Final")
-	implementation("me.paulschwarz:spring-dotenv:3.0.0")
+	implementation("me.paulschwarz:spring-dotenv:4.0.0")
 
 	// -- JWT
 	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
