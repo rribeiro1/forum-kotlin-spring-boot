@@ -50,7 +50,7 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.5")
 
 	// -- Tracing
-	implementation("com.datadoghq:dd-trace-api:1.29.0")
+	implementation("com.datadoghq:dd-trace-api:1.30.0")
 	implementation("io.opentracing:opentracing-api:0.33.0")
 	implementation("io.opentracing:opentracing-util:0.33.0")
 
